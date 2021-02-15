@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  &:active {
+    outline: none;
+  }
+}
+
+section,
+article,
+picture,
+aside {
+  display: block;
+}
+
+body {
+  background: rgb(94, 248, 89);
+}
