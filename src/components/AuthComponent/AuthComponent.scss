@@ -1,0 +1,125 @@
+@import "../_variables.scss";
+
+$mbl-break-point: 720px;
+
+.auth-component {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: $mbl-break-point) {
+    flex-direction: row;
+  }
+}
+
+.app-logo-aside {
+  background-color: $primary-app-color;
+  height: 30vh;
+
+  @media (min-width: $mbl-break-point) {
+    min-height: 100vh;
+    width: 40%;
+  }
+}
+
+.form-wrapper {
+  min-height: 70vh;
+  background-color: $secondary-app-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $mbl-break-point - 1px) {
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+  }
+
+  @media (min-width: $mbl-break-point) {
+    min-height: 100vh;
+    width: 60%;
+  }
+}
+
+.form {
+  width: 80%;
+  max-width: 420px;
+  padding: 3rem 0 5rem;
+
+  @media (min-width: $mbl-break-point) {
+    padding: 1.5rem 0;
+  }
+
+  &__heading {
+    color: $primary-text-color;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+
+    @media (max-width: $mbl-break-point - 1px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__fieldsWrapper {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 90%;
+      display: block;
+      margin: 0.4rem auto;
+      border: 1px solid transparent;
+      padding: 0.7rem 1rem;
+      font-size: 1.05rem;
+      border-radius: 1rem;
+      color: $primary-text-color;
+
+      @media (max-width: $mbl-break-point - 1px) {
+        font-size: 0.99rem;
+      }
+
+      &::placeholder {
+        color: $secondary-text-light-color;
+      }
+
+      &:focus {
+        border-color: $primary-app-color;
+        outline: none;
+      }
+    }
+  }
+
+  &__submitBtn {
+    display: block;
+    width: 90%;
+    margin: 2rem auto 0;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.8rem 0;
+    background-color: $primary-app-color;
+    color: white;
+    font-size: 1.2rem;
+
+    &:hover {
+      background-color: $primary-app-darker-color;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &__switchAuth {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: $secondary-text-light-color;
+    font-size: 0.95rem;
+  }
+
+  &__log-or-sign {
+    color: $primary-app-darker-color;
+    text-decoration: underline;
+
+    &:hover {
+      color: $primary-app-darker-color;
+    }
+  }
+}
