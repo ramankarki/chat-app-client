@@ -137,4 +137,11 @@ $mbl-break-point: 720px;
       color: $primary-app-darker-color;
     }
   }
+
+  &__forgotPasswordDesc {
+    width: 90%;
+    margin: -0.5rem auto 2rem;
+    text-align: center;
+    color: $primary-text-color;
+  }
 }
