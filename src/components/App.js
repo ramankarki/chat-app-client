@@ -6,6 +6,7 @@ import AuthComponent from "./AuthComponent/AuthComponent";
 import Signup from "./AuthComponent/Signup";
 import Login from "./AuthComponent/Login";
 import Forgotpassword from "./AuthComponent/Forgotpassword";
+import Resetpassword from "./AuthComponent/Resetpassword";
 import Homepage from "./Homepage/Homepage";
 import "./App.scss";
 
@@ -28,6 +29,11 @@ class App extends React.Component {
           <Route path="/forgotpassword" exact>
             <AuthComponent>
               <Forgotpassword />
+            </AuthComponent>
+          </Route>
+          <Route path="/resetpassword/:token" exact>
+            <AuthComponent>
+              <Resetpassword />
             </AuthComponent>
           </Route>
         </HashRouter>
