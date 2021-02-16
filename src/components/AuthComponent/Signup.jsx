@@ -10,7 +10,9 @@ class Signup extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
 
+    // password length should be greater than 12
     if (this.props.newUserData.password.length >= 12) {
+      // password and confirm password should be same
       if (
         this.props.newUserData.password ===
         this.props.newUserData.confirmpassword
