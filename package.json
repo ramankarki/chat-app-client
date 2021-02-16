@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "REACT_APP_CHAT_APP=development npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
