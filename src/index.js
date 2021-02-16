@@ -12,7 +12,7 @@ const composeEnhanchers =
 
 let store;
 
-if (process.env.REACT === "development") {
+if (process.env.REACT_APP_CHAT_APP === "development") {
   store = createStore(reducers, composeEnhanchers(applyMiddleware(reduxThunk)));
 } else {
   store = createStore(reducers, applyMiddleware(reduxThunk));
