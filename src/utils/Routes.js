@@ -1,0 +1,9 @@
+export const root = "/";
+export const login = "/login";
+export const signup = "/signup";
+export const forgotpassword = "/forgotpassword";
+export const resetpassword = "/resetpassword/:token";
+export const emailConfirmation = "/emailConfirmation";
+export const conversations = "/conversations";
+export const conversation = "/conversations/:conversationID";
+export const updateProfile = "/profile/me";
