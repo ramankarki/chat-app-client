@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { forgotpassword, signup } from "../../utils/Routes";
 
 function Signup() {
   const onSubmit = (event) => {
@@ -15,7 +16,7 @@ function Signup() {
         <input type="text" placeholder="Password" />
       </div>
 
-      <Link to="/forgotpassword" className="form__forgotPassword">
+      <Link to={forgotpassword} className="form__forgotPassword">
         Forgot password ?
       </Link>
 
@@ -25,7 +26,7 @@ function Signup() {
 
       <p className="form__switchAuth">
         Don't have an account ?{" "}
-        <Link to="/signup" className="form__log-or-sign">
+        <Link to={signup} className="form__log-or-sign">
           Register
         </Link>{" "}
       </p>

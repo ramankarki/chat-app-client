@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { login } from "../../utils/Routes";
 
 function Signup() {
   const onSubmit = (event) => {
@@ -23,7 +24,7 @@ function Signup() {
 
       <p className="form__switchAuth">
         Already have an account ?{" "}
-        <Link to="/login" className="form__log-or-sign">
+        <Link to={login} className="form__log-or-sign">
           Login
         </Link>{" "}
       </p>
