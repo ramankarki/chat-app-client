@@ -122,4 +122,19 @@ $mbl-break-point: 720px;
       color: $primary-app-darker-color;
     }
   }
+
+  &__forgotPassword {
+    font-size: 0.8rem;
+    // border: 1px solid red;
+    display: block;
+    max-width: max-content;
+    margin-left: auto;
+    margin-right: 5%;
+    margin-top: 0.5rem;
+    color: $primary-app-darker-color;
+
+    &:hover {
+      color: $primary-app-darker-color;
+    }
+  }
 }

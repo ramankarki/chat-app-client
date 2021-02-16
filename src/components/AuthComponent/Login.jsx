@@ -15,6 +15,10 @@ function Signup() {
         <input type="text" placeholder="Password" />
       </div>
 
+      <Link to="/forgotpassword" className="form__forgotPassword">
+        Forgot password ?
+      </Link>
+
       <button type="submit" className="form__submitBtn">
         Login
       </button>
