@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { login } from "../../utils/Routes";
-import { setNewUserData } from "../../actions";
+import { setNewUserData, signupUser } from "../../actions";
 import { newUserDataState } from "../../actions/types";
+import Alert from "react-bootstrap/Alert";
+import spinner from "../spinner.svg";
 
 class Signup extends React.Component {
   onSubmit = (event) => {
@@ -25,6 +27,8 @@ class Signup extends React.Component {
           this.props.newUserData.confirmpassword,
           newUserDataState.submitting
         );
+
+        this.props.signupUser();
       } else {
         this.props.setNewUserData(
           true,
@@ -114,8 +118,22 @@ class Signup extends React.Component {
 
   render() {
     if (this.props.newUserData) {
+      const failed =
+        this.props.newUserData.state.startsWith("failed") ||
+        this.props.newUserData.state.startsWith("validation");
+
+      let failedMessage;
+      if (failed) {
+        failedMessage = this.props.newUserData.state.split(",")[1];
+      }
+
       return (
         <form className="form" onSubmit={this.onSubmit}>
+          <div className="signup-warning">
+            <Alert show={failed} variant="danger">
+              <p>{failedMessage}</p>
+            </Alert>
+          </div>
           <h2 className="form__heading">Sign up</h2>
 
           <div className="form__fieldsWrapper">
@@ -152,7 +170,15 @@ class Signup extends React.Component {
           </div>
 
           <button type="submit" className="form__submitBtn">
-            Signup
+            {this.props.newUserData.state === newUserDataState.submitting ? (
+              <img
+                className="icon-spinner"
+                src={spinner}
+                alt="spinner icon svg"
+              />
+            ) : (
+              "Signup"
+            )}
           </button>
 
           <p className="form__switchAuth">
@@ -173,4 +199,4 @@ const mapStateToProps = ({ newUserData }) => {
   return { newUserData };
 };
 
-export default connect(mapStateToProps, { setNewUserData })(Signup);
+export default connect(mapStateToProps, { setNewUserData, signupUser })(Signup);
