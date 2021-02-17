@@ -6,6 +6,12 @@ export const newUserDataState = {
   typing: "typing",
   submitting: "submitting",
   submitted: "submitted",
+  resubmitting: "resubmitting",
+  activatingAccount: "activatingAccount",
+  accountActivated: "accountActivated",
+  emailNotExist:
+    "failed,Something went wrong! Maybe user with this email doesn't exist or is invalid",
+  invalidToken: "Invalid Token",
   failed:
     "failed,Something went wrong! Maybe user with this email already exists or is invalid",
   lengthValidation: "validation,Password length should be greater than 12",
