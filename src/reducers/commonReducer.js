@@ -1,6 +1,6 @@
-import { NEW_USER_DATA } from "../actions/types";
+import { NEW_USER_DATA, AUTH_USER } from "../actions/types";
 
-const newUserData = (state = null, action) => {
+export const newUserData = (state = null, action) => {
   switch (action.type) {
     case NEW_USER_DATA:
       return action.payload;
@@ -9,4 +9,11 @@ const newUserData = (state = null, action) => {
   }
 };
 
-export default newUserData;
+export const authUser = (state = {}, action) => {
+  switch (action.type) {
+    case AUTH_USER:
+      return action.payload;
+    default:
+      return state;
+  }
+};
