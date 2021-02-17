@@ -1,4 +1,9 @@
-import { NEW_USER_DATA, newUserDataState, AUTH_USER } from "./types";
+import {
+  NEW_USER_DATA,
+  newUserDataState,
+  AUTH_USER,
+  LOGIN_USER_DATA,
+} from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
 import { emailConfirmation, conversations } from "../utils/Routes";
@@ -142,6 +147,70 @@ export const activateAccount = (token) => async (dispatch) => {
         password: "",
         confirmpassword: "",
         state: newUserDataState.invalidToken,
+      },
+    });
+  }
+};
+
+export const setLoginData = (mount, email, password) => {
+  if (mount) {
+    return {
+      type: LOGIN_USER_DATA,
+      payload: {
+        email,
+        password,
+      },
+    };
+  } else {
+    return {
+      type: LOGIN_USER_DATA,
+      payload: null,
+    };
+  }
+};
+
+export const loginUser = () => async (dispatch, getState) => {
+  const { loginUserData } = getState();
+
+  dispatch({
+    type: LOGIN_USER_DATA,
+    payload: {
+      ...loginUserData,
+      state: "submitting",
+    },
+  });
+
+  try {
+    const user = await axios.post("/api/v1/users/login", loginUserData);
+    const updateActiveState = await axios.patch(
+      "/api/v1/users/updateMe",
+      {
+        isUserActive: true,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${user.data.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        isLoggedIn: true,
+        token: user.data.token,
+        user: updateActiveState.data.user,
+      },
+    });
+
+    history.push(conversations);
+  } catch (err) {
+    dispatch({
+      type: LOGIN_USER_DATA,
+      payload: {
+        ...loginUserData,
+        loginFailed: true,
+        state: "failed",
       },
     });
   }
