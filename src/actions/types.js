@@ -1,5 +1,6 @@
 export const SIGNUP_USER = "SIGNUP_USER";
 export const NEW_USER_DATA = "NEW_USER_DATA";
+export const AUTH_USER = "AUTH_USER";
 
 export const newUserDataState = {
   emptyFields: "empty fields",
