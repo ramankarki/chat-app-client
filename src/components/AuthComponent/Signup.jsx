@@ -118,6 +118,12 @@ class Signup extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    if (this.props.newUserData.state !== newUserDataState.submitted) {
+      this.props.setNewUserData(false);
+    }
+  }
+
   render() {
     if (this.props.newUserData) {
       const failed =
