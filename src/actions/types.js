@@ -6,7 +6,8 @@ export const newUserDataState = {
   typing: "typing",
   submitting: "submitting",
   submitted: "submitted",
-  failed: "failed",
+  failed:
+    "failed,Something went wrong! Maybe user with this email already exists or is invalid",
   lengthValidation: "validation,Password length should be greater than 12",
   unmatchedValidation: "validation,Password and Confirm password are not same",
 };
