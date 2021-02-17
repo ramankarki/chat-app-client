@@ -167,3 +167,28 @@ $mbl-break-point: 720px;
     color: $primary-text-color;
   }
 }
+
+.signup-warning {
+  max-width: max-content;
+  margin: auto;
+
+  p {
+    margin: 0;
+  }
+}
+
+.icon-spinner {
+  filter: invert(100%);
+  width: 1.2rem;
+  height: 100%;
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
