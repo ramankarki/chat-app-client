@@ -3,6 +3,7 @@ import {
   newUserDataState,
   AUTH_USER,
   LOGIN_USER_DATA,
+  FORGOT_PASSWORD,
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
@@ -213,5 +214,22 @@ export const loginUser = () => async (dispatch, getState) => {
         state: "failed",
       },
     });
+  }
+};
+
+export const setForgotPassword = (email, state, mount) => {
+  if (mount) {
+    return {
+      type: FORGOT_PASSWORD,
+      payload: {
+        email,
+        state,
+      },
+    };
+  } else {
+    return {
+      type: FORGOT_PASSWORD,
+      payload: null,
+    };
   }
 };
