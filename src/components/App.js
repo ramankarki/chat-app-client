@@ -7,6 +7,7 @@ import {
   forgotpassword,
   resetpassword,
   emailConfirmation,
+  activateAccount,
 } from "../utils/Routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +17,7 @@ import Login from "./AuthComponent/Login";
 import Forgotpassword from "./AuthComponent/Forgotpassword";
 import Resetpassword from "./AuthComponent/Resetpassword";
 import EmailConfirmation from "./AuthComponent/EmailConfirmation";
+import ActivateAccount from "./AuthComponent/ActivateAccount";
 import Homepage from "./Homepage/Homepage";
 import "./App.scss";
 
@@ -46,6 +48,11 @@ class App extends React.Component {
             </AuthComponent>
           </Route>
           <Route path={emailConfirmation} exact component={EmailConfirmation} />
+          <Route path={activateAccount} exact>
+            <AuthComponent>
+              <ActivateAccount />
+            </AuthComponent>
+          </Route>
         </HashRouter>
       </div>
     );
