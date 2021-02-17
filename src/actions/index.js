@@ -233,3 +233,34 @@ export const setForgotPassword = (email, state, mount) => {
     };
   }
 };
+
+export const sendForgotPassword = () => async (dispatch, getState) => {
+  const { email } = getState().forgotPassword;
+
+  dispatch({
+    type: FORGOT_PASSWORD,
+    payload: {
+      email,
+      state: "submitting",
+    },
+  });
+
+  try {
+    await axios.post("/api/v1/users/forgotPassword", { email });
+    dispatch({
+      type: FORGOT_PASSWORD,
+      payload: {
+        email,
+        state: "submitted",
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: FORGOT_PASSWORD,
+      payload: {
+        email,
+        state: "failed",
+      },
+    });
+  }
+};
