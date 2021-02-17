@@ -7,6 +7,6 @@ export const newUserDataState = {
   submitting: "submitting",
   submitted: "submitted",
   failed: "failed",
-  lengthValidation: "validation Password length should be greater than 12",
-  unmatchedValidation: "validation Password and Confirm password are not same",
+  lengthValidation: "validation,Password length should be greater than 12",
+  unmatchedValidation: "validation,Password and Confirm password are not same",
 };
