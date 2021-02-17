@@ -1,4 +1,4 @@
-import { NEW_USER_DATA, newUserDataState } from "./types";
+import { NEW_USER_DATA, newUserDataState, AUTH_USER } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
 import { emailConfirmation, conversations } from "../utils/Routes";
@@ -100,7 +100,28 @@ export const activateAccount = (token) => async (dispatch) => {
     },
   });
   try {
-    await axios.get(`/api/v1/users/activateAccount/${token}`);
+    const user = await axios.get(`/api/v1/users/activateAccount/${token}`);
+    const updateActiveState = await axios.patch(
+      "/api/v1/users/updateMe",
+      {
+        isUserActive: true,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${user.data.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        isLoggedIn: true,
+        token: user.data.token,
+        user: updateActiveState.data.user,
+      },
+    });
+
     dispatch({
       type: NEW_USER_DATA,
       payload: {
