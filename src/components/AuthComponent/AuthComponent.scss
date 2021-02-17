@@ -192,3 +192,88 @@ $mbl-break-point: 720px;
     transform: rotate(359deg);
   }
 }
+
+.chat-app-logo {
+  width: 50%;
+  margin: auto;
+  max-width: 180px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.confirmation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+
+  &__wrapper {
+    padding: 3rem 0 4rem;
+    width: 80%;
+    max-width: 550px;
+    margin: auto;
+    text-align: center;
+    color: $secondary-app-color;
+  }
+
+  &__heading {
+    font-size: 1.6rem;
+
+    @media (min-width: $mbl-break-point) {
+      font-size: 2rem;
+    }
+  }
+
+  &__desc {
+    margin-top: 2rem;
+    line-height: 1.8rem;
+
+    span {
+      text-decoration: underline;
+      font-weight: 700;
+    }
+  }
+
+  &__resendEmailQue {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-top: 2rem;
+  }
+
+  &__resendBtn {
+    padding: 0.8rem 0;
+    border-radius: 1rem;
+    border: none;
+    font-size: 1.2rem;
+    color: $primary-app-color;
+    font-weight: 700;
+    width: 180px;
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+.icon-spinner-dark {
+  filter: invert(0%);
+  width: 1.2rem;
+  height: 100%;
+  animation: rotation1 1s infinite linear;
+}
+
+@keyframes rotation1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.icon-spinner-activateAccount {
+  animation: rotation1 1s infinite linear;
+}
