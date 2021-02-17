@@ -1,8 +1,15 @@
 import { combineReducers } from "redux";
-import { newUserData, authUser, loginUserData } from "./commonReducer";
+import commonReducer from "./commonReducer";
+import {
+  FORGOT_PASSWORD,
+  NEW_USER_DATA,
+  AUTH_USER,
+  LOGIN_USER_DATA,
+} from "../actions/types";
 
 export default combineReducers({
-  newUserData,
-  loginUserData,
-  auth: authUser,
+  newUserData: commonReducer(NEW_USER_DATA, null),
+  loginUserData: commonReducer(LOGIN_USER_DATA, null),
+  auth: commonReducer(AUTH_USER, {}),
+  forgotPassword: commonReducer(FORGOT_PASSWORD, null),
 });
