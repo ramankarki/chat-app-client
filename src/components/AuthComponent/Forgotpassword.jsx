@@ -1,27 +1,53 @@
 import React from "react";
+import { connect } from "react-redux";
 
-function Signup() {
-  const onSubmit = (event) => {
+import { setForgotPassword } from "../../actions";
+
+class ForgotPassword extends React.Component {
+  onSubmit = (event) => {
     event.preventDefault();
   };
 
-  return (
-    <form className="form" onSubmit={onSubmit}>
-      <h2 className="form__heading">Forgot Password</h2>
+  componentDidMount() {
+    this.props.setForgotPassword("", "empty", true);
+  }
 
-      <p className="form__forgotPasswordDesc">
-        Get reset token to your mailbox
-      </p>
+  componentWillUnmount() {
+    this.props.setForgotPassword("", "empty", false);
+  }
 
-      <div className="form__fieldsWrapper">
-        <input type="email" placeholder="Email" />
-      </div>
+  render() {
+    if (!this.props.forgotPassword) return "";
 
-      <button type="submit" className="form__submitBtn">
-        Send
-      </button>
-    </form>
-  );
+    return (
+      <form className="form" onSubmit={this.onSubmit}>
+        <h2 className="form__heading">Forgot Password</h2>
+
+        <p className="form__forgotPasswordDesc">
+          Get reset token to your mailbox
+        </p>
+
+        <div className="form__fieldsWrapper">
+          <input
+            type="email"
+            placeholder="Email"
+            value={this.props.forgotPassword.email}
+            onChange={(event) =>
+              this.props.setForgotPassword(event.target.value, "typing", true)
+            }
+          />
+        </div>
+
+        <button type="submit" className="form__submitBtn">
+          Send
+        </button>
+      </form>
+    );
+  }
 }
 
-export default Signup;
+const mapStateToProps = ({ forgotPassword }) => {
+  return { forgotPassword };
+};
+
+export default connect(mapStateToProps, { setForgotPassword })(ForgotPassword);
