@@ -13,10 +13,29 @@ $mbl-break-point: 720px;
 .app-logo-aside {
   background-color: $primary-app-color;
   height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
 
   @media (min-width: $mbl-break-point) {
+    position: static;
     min-height: 100vh;
     width: 40%;
+  }
+
+  img {
+    width: 40%;
+    height: auto;
+    max-width: 150px;
+
+    @media (min-width: $mbl-break-point) {
+      max-width: 350px;
+    }
   }
 }
 
@@ -26,6 +45,7 @@ $mbl-break-point: 720px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 30vh;
 
   @media (max-width: $mbl-break-point - 1px) {
     border-top-left-radius: 3rem;
@@ -35,6 +55,7 @@ $mbl-break-point: 720px;
   @media (min-width: $mbl-break-point) {
     min-height: 100vh;
     width: 60%;
+    margin-top: 0;
   }
 }
 
@@ -132,6 +153,7 @@ $mbl-break-point: 720px;
     margin-right: 5%;
     margin-top: 0.5rem;
     color: $primary-app-darker-color;
+    opacity: 0.8;
 
     &:hover {
       color: $primary-app-darker-color;
