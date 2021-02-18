@@ -5,6 +5,7 @@ import {
   NEW_USER_DATA,
   AUTH_USER,
   LOGIN_USER_DATA,
+  RESET_PASSWORD_DATA,
 } from "../actions/types";
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   loginUserData: commonReducer(LOGIN_USER_DATA, null),
   auth: commonReducer(AUTH_USER, {}),
   forgotPassword: commonReducer(FORGOT_PASSWORD, null),
+  resetPasswordData: commonReducer(RESET_PASSWORD_DATA, null),
 });
