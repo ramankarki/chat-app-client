@@ -283,3 +283,53 @@ export const setResetPassword = (mount, password, confirmPassword, state) => {
     };
   }
 };
+
+export const resetPassword = (token) => async (dispatch, getState) => {
+  const { resetPasswordData } = getState();
+
+  dispatch({
+    type: RESET_PASSWORD_DATA,
+    payload: {
+      ...resetPasswordData,
+      state: "submitting",
+    },
+  });
+
+  try {
+    const user = await axios.patch(
+      `/api/v1/users/resetPassword/${token}`,
+      resetPasswordData
+    );
+
+    const updateActiveState = await axios.patch(
+      "/api/v1/users/updateMe",
+      {
+        isUserActive: true,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${user.data.token}`,
+        },
+      }
+    );
+
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        isLoggedIn: true,
+        token: user.data.token,
+        user: updateActiveState.data.user,
+      },
+    });
+
+    history.push(conversations);
+  } catch (err) {
+    dispatch({
+      type: RESET_PASSWORD_DATA,
+      payload: {
+        ...resetPasswordData,
+        state: newUserDataState.invalidToken,
+      },
+    });
+  }
+};
