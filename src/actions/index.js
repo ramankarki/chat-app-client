@@ -4,6 +4,7 @@ import {
   AUTH_USER,
   LOGIN_USER_DATA,
   FORGOT_PASSWORD,
+  RESET_PASSWORD_DATA,
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
@@ -262,5 +263,23 @@ export const sendForgotPassword = () => async (dispatch, getState) => {
         state: "failed",
       },
     });
+  }
+};
+
+export const setResetPassword = (mount, password, confirmPassword, state) => {
+  if (mount) {
+    return {
+      type: RESET_PASSWORD_DATA,
+      payload: {
+        password,
+        confirmPassword,
+        state,
+      },
+    };
+  } else {
+    return {
+      type: RESET_PASSWORD_DATA,
+      payload: null,
+    };
   }
 };
