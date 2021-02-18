@@ -1,24 +1,26 @@
 import React from "react";
 
-function Signup() {
-  const onSubmit = (event) => {
+class Resetpassword extends React.Component {
+  onSubmit = (event) => {
     event.preventDefault();
   };
 
-  return (
-    <form className="form" onSubmit={onSubmit}>
-      <h2 className="form__heading">Reset Password</h2>
+  render() {
+    return (
+      <form className="form" onSubmit={this.onSubmit}>
+        <h2 className="form__heading">Reset Password</h2>
 
-      <div className="form__fieldsWrapper">
-        <input type="text" placeholder="New password" />
-        <input type="text" placeholder="Confirm password" />
-      </div>
+        <div className="form__fieldsWrapper">
+          <input type="text" placeholder="New password" />
+          <input type="text" placeholder="Confirm password" />
+        </div>
 
-      <button type="submit" className="form__submitBtn">
-        Update
-      </button>
-    </form>
-  );
+        <button type="submit" className="form__submitBtn">
+          Update
+        </button>
+      </form>
+    );
+  }
 }
 
-export default Signup;
+export default Resetpassword;
