@@ -14,7 +14,7 @@ export const setNewUserData = (
   username,
   email,
   password,
-  confirmpassword,
+  confirmPassword,
   state
 ) => {
   if (newUser) {
@@ -24,7 +24,7 @@ export const setNewUserData = (
         username,
         email,
         password,
-        confirmpassword,
+        confirmPassword,
         state,
       },
     };
@@ -101,7 +101,7 @@ export const activateAccount = (token) => async (dispatch) => {
       username: "",
       email: "",
       password: "",
-      confirmpassword: "",
+      confirmPassword: "",
       state: newUserDataState.activatingAccount,
     },
   });
@@ -134,7 +134,7 @@ export const activateAccount = (token) => async (dispatch) => {
         username: "",
         email: "",
         password: "",
-        confirmpassword: "",
+        confirmPassword: "",
         state: newUserDataState.accountActivated,
       },
     });
@@ -146,7 +146,7 @@ export const activateAccount = (token) => async (dispatch) => {
         username: "",
         email: "",
         password: "",
-        confirmpassword: "",
+        confirmPassword: "",
         state: newUserDataState.invalidToken,
       },
     });
