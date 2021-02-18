@@ -50,6 +50,7 @@ $mbl-break-point: 720px;
   @media (max-width: $mbl-break-point - 1px) {
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
+    box-shadow: rgb(0, 0, 0) 0px 10px 38px, rgba(0, 0, 0, 0.705) 0px 15px 12px;
   }
 
   @media (min-width: $mbl-break-point) {
