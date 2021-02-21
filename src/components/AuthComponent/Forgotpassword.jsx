@@ -57,6 +57,7 @@ class ForgotPassword extends React.Component {
             placeholder="Email"
             value={this.props.forgotPassword.email}
             required
+            autoFocus
             onChange={(event) =>
               this.props.setForgotPassword(event.target.value, "typing", true)
             }
