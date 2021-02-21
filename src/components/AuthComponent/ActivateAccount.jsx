@@ -32,7 +32,10 @@ class ActivateAccount extends React.Component {
   render() {
     if (!this.props.newUserData) return "";
 
-    if (this.props.newUserData.state === newUserDataState.activatingAccount) {
+    if (
+      this.props.newUserData.state === newUserDataState.activatingAccount ||
+      this.props.newUserData.state === "accountActivated"
+    ) {
       return (
         <img
           className="icon-spinner-activateAccount"
@@ -73,6 +76,7 @@ class ActivateAccount extends React.Component {
               placeholder="Email"
               value={this.props.newUserData.email}
               required
+              autoFocus
               onChange={(event) =>
                 this.props.setNewUserData(
                   true,
