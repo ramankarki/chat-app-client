@@ -4,6 +4,10 @@ export const AUTH_USER = "AUTH_USER";
 export const LOGIN_USER_DATA = "LOGIN_USER_DATA";
 export const FORGOT_PASSWORD = "FORGOT_PASSWORD";
 export const RESET_PASSWORD_DATA = "RESET_PASSWORD_DATA";
+export const CONVERSATIONS = "CONVERSATIONS";
+export const USERS = "USERS";
+export const ACTIVE_CONVERSATION = "ACTIVE_CONVERSATION";
+export const MESSAGE_DATA = "MESSAGE_DATA";
 
 export const newUserDataState = {
   emptyFields: "empty fields",
