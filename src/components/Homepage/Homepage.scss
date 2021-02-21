@@ -1,0 +1,154 @@
+@import "../_variables";
+
+.landing {
+  padding: 3rem 0;
+
+  @media (min-width: 768px) {
+    padding: 1rem 0;
+  }
+}
+
+.landingPage {
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+  }
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column-reverse;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  &-actionWrapper,
+  &-image {
+    flex: 1;
+  }
+
+  &-action {
+    background-color: $secondary-app-color;
+    max-width: max-content;
+    margin: auto;
+    border-radius: 2.5rem;
+    padding: 1.5rem 2.5rem 2.5rem;
+    margin-top: 3rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+    @media (min-width: 576px) {
+      padding: 2rem 3rem 3rem;
+    }
+
+    @media (min-width: 768px) {
+      margin-top: 0;
+    }
+  }
+
+  &-heading {
+    line-height: 2rem;
+    color: $primary-text-color;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+
+    @media (min-width: 768px) {
+      font-size: 1.6rem;
+      line-height: 2.8rem;
+      margin-bottom: 2rem;
+    }
+
+    span {
+      display: block;
+      color: $primary-app-darker-color;
+      text-decoration: underline;
+    }
+  }
+
+  &-image {
+    max-width: 300px;
+
+    @media (min-width: 768px) {
+      max-width: initial;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+      width: 80%;
+      height: auto;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    & * {
+      flex: 1;
+    }
+  }
+}
+
+.signup,
+.login {
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+    padding: 0.7rem 1.5rem;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.signup {
+  background-color: $primary-app-color;
+  color: $secondary-app-color;
+  margin-right: 1.5rem;
+
+  &:hover {
+    color: $secondary-app-color;
+    background-color: $primary-app-darker-color;
+  }
+}
+
+.login {
+  border: 1px solid $secondary-text-light-color;
+  color: $primary-app-darker-color;
+
+  &:hover {
+    color: $primary-app-darker-color;
+    background-color: #d7d7e4;
+  }
+}
+
+.landing-app-logo {
+  display: block;
+  margin: auto;
+  max-width: 100px;
+
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+  }
+}
+
+.github-link {
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgb(226, 220, 220);
+
+  a {
+    color: $secondary-app-color;
+    text-decoration: underline;
+  }
+}
