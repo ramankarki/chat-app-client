@@ -69,6 +69,7 @@ class Signup extends React.Component {
             placeholder="Email"
             value={this.props.loginUserData.email}
             required
+            autoFocus
             onChange={(event) => this.onInputFieldChange(event, "email")}
           />
           <input
