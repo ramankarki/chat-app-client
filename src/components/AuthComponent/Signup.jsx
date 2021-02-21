@@ -19,14 +19,14 @@ class Signup extends React.Component {
       // password and confirm password should be same
       if (
         this.props.newUserData.password ===
-        this.props.newUserData.confirmpassword
+        this.props.newUserData.confirmPassword
       ) {
         this.props.setNewUserData(
           true,
           this.props.newUserData.username,
           this.props.newUserData.email,
           this.props.newUserData.password,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.submitting
         );
 
@@ -37,7 +37,7 @@ class Signup extends React.Component {
           this.props.newUserData.username,
           this.props.newUserData.email,
           this.props.newUserData.password,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.unmatchedValidation
         );
       }
@@ -47,7 +47,7 @@ class Signup extends React.Component {
         this.props.newUserData.username,
         this.props.newUserData.email,
         this.props.newUserData.password,
-        this.props.newUserData.confirmpassword,
+        this.props.newUserData.confirmPassword,
         newUserDataState.lengthValidation
       );
     }
@@ -61,7 +61,7 @@ class Signup extends React.Component {
           event.target.value,
           this.props.newUserData.email,
           this.props.newUserData.password,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.typing
         );
         break;
@@ -71,7 +71,7 @@ class Signup extends React.Component {
           this.props.newUserData.username,
           event.target.value,
           this.props.newUserData.password,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.typing
         );
         break;
@@ -81,11 +81,11 @@ class Signup extends React.Component {
           this.props.newUserData.username,
           this.props.newUserData.email,
           event.target.value,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.typing
         );
         break;
-      case "confirmpassword":
+      case "confirmPassword":
         this.props.setNewUserData(
           true,
           this.props.newUserData.username,
@@ -101,7 +101,7 @@ class Signup extends React.Component {
           this.props.newUserData.username,
           this.props.newUserData.email,
           this.props.newUserData.password,
-          this.props.newUserData.confirmpassword,
+          this.props.newUserData.confirmPassword,
           newUserDataState.typing
         );
     }
@@ -151,6 +151,7 @@ class Signup extends React.Component {
               value={this.props.newUserData.username}
               onChange={(event) => this.onSignupFieldChange(event, "username")}
               required
+              autoFocus
             />
             <input
               type="email"
@@ -169,9 +170,9 @@ class Signup extends React.Component {
             <input
               type="text"
               placeholder="Confirm password"
-              value={this.props.newUserData.confirmpassword}
+              value={this.props.newUserData.confirmPassword}
               onChange={(event) =>
-                this.onSignupFieldChange(event, "confirmpassword")
+                this.onSignupFieldChange(event, "confirmPassword")
               }
               required
             />
