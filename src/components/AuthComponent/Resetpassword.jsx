@@ -98,6 +98,7 @@ class Resetpassword extends React.Component {
             type="text"
             placeholder="New password"
             required
+            autoFocus
             value={this.props.resetPasswordData.password}
             onChange={(event) => this.onInputFieldChange(event, "password")}
           />
