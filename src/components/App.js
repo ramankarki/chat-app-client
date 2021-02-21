@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { HashRouter, Route } from "react-router-dom";
 import {
   root,
@@ -8,9 +9,11 @@ import {
   resetpassword,
   emailConfirmation,
   activateAccount,
+  conversations,
 } from "../utils/Routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import AuthComponent from "./AuthComponent/AuthComponent";
 import Signup from "./AuthComponent/Signup";
 import Login from "./AuthComponent/Login";
@@ -18,10 +21,20 @@ import Forgotpassword from "./AuthComponent/Forgotpassword";
 import Resetpassword from "./AuthComponent/Resetpassword";
 import EmailConfirmation from "./AuthComponent/EmailConfirmation";
 import ActivateAccount from "./AuthComponent/ActivateAccount";
+import Conversations from "./Conversations";
 import Homepage from "./Homepage/Homepage";
+import { getMe, getConversations, getUsers } from "../actions";
 import "./App.scss";
 
 class App extends React.Component {
+  componentDidUpdate() {
+    if (!this.props.auth.user) {
+      this.props.getMe();
+      this.props.getUsers();
+      this.props.getConversations();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -53,10 +66,19 @@ class App extends React.Component {
               <ActivateAccount />
             </AuthComponent>
           </Route>
+          <Route path={conversations} exact component={Conversations} />
         </HashRouter>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = ({ auth }) => {
+  return { auth };
+};
+
+export default connect(mapStateToProps, {
+  getMe,
+  getConversations,
+  getUsers,
+})(App);
