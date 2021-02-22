@@ -32,13 +32,14 @@ class Homepage extends React.Component {
               <img src={illustration} alt="mobile chatting illustration" />
             </picture>
           </div>
+          <div>
+            <img className="landing-app-logo" src={logo} alt="app logo" />
+            <p className="github-link">
+              Chat App project by{" "}
+              <a href="https://github.com/ramankarki">Raman Karki</a>
+            </p>
+          </div>
         </div>
-
-        <img className="landing-app-logo" src={logo} alt="app logo" />
-        <p className="github-link">
-          Chat App project by{" "}
-          <a href="https://github.com/ramankarki">Raman Karki</a>
-        </p>
       </div>
     );
   }
