@@ -13,6 +13,7 @@ import {
 import axios from "../utils/axios";
 import history from "../utils/history";
 import { emailConfirmation, conversations, login } from "../utils/Routes";
+import EMOJIS from "../utils/emojis";
 
 export const setNewUserData = (
   newUser,
@@ -644,4 +645,35 @@ export const updateOnlineState = (state) => async (dispatch, getState) => {
   } catch (err) {
     history.push(login);
   }
+};
+
+const emojiUnicode = (emoji) => {
+  let comp;
+  if (emoji.length === 1) {
+    comp = emoji.charCodeAt(0);
+  }
+  comp =
+    (emoji.charCodeAt(0) - 0xd800) * 0x400 +
+    (emoji.charCodeAt(1) - 0xdc00) +
+    0x10000;
+  if (comp < 0) {
+    comp = emoji.charCodeAt(0);
+  }
+  return comp.toString("16");
+};
+
+export const addEmoji = (id) => (dispatch, getState) => {
+  const { message } = getState();
+
+  const emojiUni = emojiUnicode(EMOJIS.slice(id, id + 2));
+
+  let emoji = String.fromCodePoint("0x" + emojiUni);
+
+  dispatch({
+    type: MESSAGE_DATA,
+    payload: {
+      ...message,
+      message: message.message + emoji,
+    },
+  });
 };
