@@ -265,6 +265,7 @@ $break-point: 768px;
       display: flex;
       align-items: center;
       width: 100%;
+      position: relative;
 
       input {
         // border: 1px solid green;
@@ -290,6 +291,32 @@ $break-point: 768px;
 
         &:active {
           transform: scale(0.9);
+        }
+      }
+
+      .emoji-container {
+        position: absolute;
+        right: 1.4rem;
+        bottom: 2rem;
+        border: 1px solid rgb(199, 191, 191);
+        text-align: center;
+        background-color: rgb(253, 250, 253);
+        padding: 0.5rem;
+        font-size: 1.5rem;
+        width: 70%;
+        height: 60vh;
+        max-width: 300px;
+        max-height: 350px;
+        border-radius: 1rem;
+        overflow: auto;
+
+        span {
+          cursor: pointer;
+          user-select: none;
+          -moz-user-select: none;
+          -khtml-user-select: none;
+          -webkit-user-select: none;
+          -o-user-select: none;
         }
       }
     }
