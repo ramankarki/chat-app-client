@@ -21,7 +21,6 @@ import ConversationCard from "./ConversationCard";
 import Message from "./Message";
 import EMOJIS from "../../utils/emojis";
 import defaultAvatar from "../avatar.svg";
-import logo from "../logo.png";
 import sendMessageIcon from "../send.svg";
 import spinner from "../spinner.svg";
 import "./Conversations.scss";
