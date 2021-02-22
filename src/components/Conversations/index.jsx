@@ -13,10 +13,12 @@ import {
   conversationInserted,
   messageInserted,
   updateOnlineState,
+  addEmoji,
 } from "../../actions";
 import keys from "../../config";
 import ConversationCard from "./ConversationCard";
 import Message from "./Message";
+import EMOJIS from "../../utils/emojis";
 import defaultAvatar from "../avatar.svg";
 import logo from "../logo.png";
 import sendMessageIcon from "../send.svg";
@@ -27,6 +29,7 @@ class Conversations extends Component {
   state = {
     activeTab: "people",
     messageContainerClass: "message-container",
+    isEmojiActive: false,
   };
 
   messageContainer = React.createRef();
@@ -180,6 +183,18 @@ class Conversations extends Component {
     });
   };
 
+  renderEmojis = () =>
+    EMOJIS.split("").map((emoji, index) => (
+      <span
+        onClick={() => {
+          this.props.addEmoji(index);
+        }}
+        key={index}
+      >
+        {emoji}
+      </span>
+    ));
+
   onMessageSubmit = (event) => {
     if (event.preventDefault) event.preventDefault();
 
@@ -212,12 +227,10 @@ class Conversations extends Component {
     this.messageChannel = pusher.subscribe("messages");
 
     this.userChannel.bind("inserted", (data) => {
-      console.log(data);
       this.props.userInserted(data);
     });
 
     this.userChannel.bind("updated", (data) => {
-      console.log(data);
       this.props.userUpdated(data);
     });
 
@@ -226,17 +239,14 @@ class Conversations extends Component {
     });
 
     this.conversationChannel.bind("inserted", (data) => {
-      console.log(data);
       this.props.conversationInserted(data);
     });
 
     this.conversationChannel.bind("updated", (data) => {
-      console.log(data);
       this.props.conversationInserted(data._id);
     });
 
     this.messageChannel.bind("inserted", (data) => {
-      console.log(data);
       this.props.messageInserted(data);
     });
 
@@ -388,8 +398,20 @@ class Conversations extends Component {
                     }
                   />
 
-                  <i className="bi bi-emoji-laughing-fill"></i>
+                  <i
+                    onClick={() =>
+                      this.setState({
+                        isEmojiActive: !this.state.isEmojiActive,
+                      })
+                    }
+                    className="bi bi-emoji-laughing-fill"
+                  ></i>
+
                   <input type="submit" value="" style={{ display: "none" }} />
+
+                  {this.state.isEmojiActive ? (
+                    <div className="emoji-container">{this.renderEmojis()}</div>
+                  ) : null}
                 </form>
                 <img
                   className={
@@ -439,4 +461,5 @@ export default connect(mapStateToProps, {
   conversationInserted,
   messageInserted,
   updateOnlineState,
+  addEmoji,
 })(Conversations);
