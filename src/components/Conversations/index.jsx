@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Pusher from "pusher-js";
 
+import ProfileBar from "../ProfileBar";
 import {
   getUsers,
   getConversations,
@@ -62,11 +63,7 @@ class Conversations extends Component {
   }
 
   userAvatar = (user) => {
-    if (!user) return null;
-
-    if (!user.avatar) return null;
-
-    let image = user.avatar.data || null;
+    let image = user?.avatar?.data;
     if (image) {
       image = this.bufferToBase64(image);
       return `data:image/jpeg;base64,${image}`;
@@ -269,14 +266,7 @@ class Conversations extends Component {
   render() {
     return (
       <div className="conversations">
-        <aside className="profile-bar">
-          <img
-            className="default-avatar"
-            src={this.userAvatar(this.props.auth.user) || defaultAvatar}
-            alt="default avatar"
-          />
-          <img className="profile-bar-logo" src={logo} alt="logo" />
-        </aside>
+        <ProfileBar />
         <aside className="conversation-bar">
           <div className="conversation-tab">
             <span
