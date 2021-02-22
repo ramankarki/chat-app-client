@@ -36,7 +36,13 @@ class Homepage extends React.Component {
             <img className="landing-app-logo" src={logo} alt="app logo" />
             <p className="github-link">
               Chat App project by{" "}
-              <a href="https://github.com/ramankarki">Raman Karki</a>
+              <a
+                href="https://github.com/ramankarki"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Raman Karki
+              </a>
             </p>
           </div>
         </div>
