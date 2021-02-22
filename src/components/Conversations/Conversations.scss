@@ -298,7 +298,7 @@ $break-point: 768px;
         position: absolute;
         right: 1.4rem;
         bottom: 2rem;
-        border: 1px solid rgb(199, 191, 191);
+        border: 1px solid rgba(199, 191, 191, 0.877);
         text-align: center;
         background-color: rgb(253, 250, 253);
         padding: 0.5rem;
@@ -309,6 +309,9 @@ $break-point: 768px;
         max-height: 350px;
         border-radius: 1rem;
         overflow: auto;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
         span {
           cursor: pointer;
