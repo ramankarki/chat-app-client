@@ -647,27 +647,10 @@ export const updateOnlineState = (state) => async (dispatch, getState) => {
   }
 };
 
-const emojiUnicode = (emoji) => {
-  let comp;
-  if (emoji.length === 1) {
-    comp = emoji.charCodeAt(0);
-  }
-  comp =
-    (emoji.charCodeAt(0) - 0xd800) * 0x400 +
-    (emoji.charCodeAt(1) - 0xdc00) +
-    0x10000;
-  if (comp < 0) {
-    comp = emoji.charCodeAt(0);
-  }
-  return comp.toString("16");
-};
-
 export const addEmoji = (id) => (dispatch, getState) => {
   const { message } = getState();
 
-  const emojiUni = emojiUnicode(EMOJIS.slice(id, id + 2));
-
-  let emoji = String.fromCodePoint("0x" + emojiUni);
+  let emoji = EMOJIS.slice(id, id + 2);
 
   dispatch({
     type: MESSAGE_DATA,
