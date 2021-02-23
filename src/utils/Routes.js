@@ -6,5 +6,4 @@ export const forgotpassword = "/users/forgotpassword";
 export const resetpassword = "/users/resetpassword/:token";
 export const emailConfirmation = "/users/emailConfirmation";
 export const conversations = "/conversations";
-export const conversation = "/conversations/:conversationID";
-export const updateProfile = "/profile/me";
+export const updateProfile = "/users/profile/me";
