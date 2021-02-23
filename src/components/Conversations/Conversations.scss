@@ -33,6 +33,15 @@ $break-point: 768px;
     margin: 0 auto 0;
     max-width: 100px;
   }
+
+  &-username {
+    font-size: 0.9rem;
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    margin-top: 0.5rem;
+    color: $secondary-app-color;
+  }
 }
 
 .conversation {

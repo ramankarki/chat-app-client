@@ -28,11 +28,16 @@ class index extends Component {
   render() {
     return (
       <aside className="profile-bar">
-        <img
-          className="default-avatar"
-          src={this.userAvatar(this.props.auth.user) || defaultAvatar}
-          alt="default avatar"
-        />
+        <picture>
+          <img
+            className="default-avatar"
+            src={this.userAvatar(this.props.auth.user) || defaultAvatar}
+            alt="default avatar"
+          />
+          <p className="profile-bar-username">
+            {this.props.auth.user?.username || "raman karki"}
+          </p>
+        </picture>
         <img className="profile-bar-logo" src={logo} alt="logo" />
       </aside>
     );
