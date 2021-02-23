@@ -8,6 +8,7 @@ export const CONVERSATIONS = "CONVERSATIONS";
 export const USERS = "USERS";
 export const ACTIVE_CONVERSATION = "ACTIVE_CONVERSATION";
 export const MESSAGE_DATA = "MESSAGE_DATA";
+export const PROFILE_DATA = "PROFILE_DATA";
 
 export const newUserDataState = {
   emptyFields: "empty fields",
