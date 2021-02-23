@@ -24,6 +24,12 @@ $break-point: 768px;
     max-width: 50px;
     border: 2px solid white;
     cursor: pointer;
+    transition: 150ms ease-out;
+
+    &:hover {
+      box-shadow: 0 15px 35px -7px rgb(75, 23, 63);
+      transform: translateY(-0.2rem);
+    }
   }
 
   &-logo {
