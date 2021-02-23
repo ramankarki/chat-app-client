@@ -9,6 +9,7 @@ import {
   USERS,
   ACTIVE_CONVERSATION,
   MESSAGE_DATA,
+  PROFILE_DATA,
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
@@ -488,18 +489,26 @@ export const userInserted = (user) => (dispatch, getState) => {
 };
 
 export const userUpdated = (updates) => (dispatch, getState) => {
-  let { users } = getState();
+  let { users, auth } = getState();
 
   let updatedUser;
-  let i;
-  for (i = 0; i < users.length; i++) {
-    if (users[i]._id === updates.id) {
-      updatedUser = {
-        ...users[i],
-        ...updates.updatedFields,
-      };
-      break;
-    }
+  let i = users.findIndex((user) => user._id === updates.id);
+
+  if (i < 0) return;
+
+  updatedUser = {
+    ...users[i],
+    ...updates.updatedFields,
+  };
+
+  if (auth.user._id === updates.id) {
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        ...auth,
+        user: updatedUser,
+      },
+    });
   }
 
   users = [...users.slice(0, i), updatedUser, ...users.slice(i + 1)];
@@ -659,4 +668,37 @@ export const addEmoji = (id) => (dispatch, getState) => {
       message: message.message + emoji,
     },
   });
+};
+
+export const setProfileData = (username, email) => {
+  return {
+    type: PROFILE_DATA,
+    payload: {
+      username,
+      email,
+    },
+  };
+};
+
+export const saveProfileData = () => async (dispatch, getState) => {
+  const { profileData, auth } = getState();
+
+  const userAvatar = document.querySelector(".user-avatar");
+  const formData = new FormData();
+  formData.append("username", profileData.username);
+  formData.append("email", profileData.email);
+
+  if (userAvatar.files.length) {
+    formData.append("avatar", userAvatar.files[0]);
+  }
+
+  try {
+    await axios.patch("/api/v1/users/updateMe", formData, {
+      headers: {
+        authorization: `Bearer ${auth.token}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
