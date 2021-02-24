@@ -69,6 +69,8 @@ class index extends Component {
   }
 
   render() {
+    if (!this.props.auth.user) return "";
+
     let show, message, variant;
     if (this.props.profileData.state === "saved") {
       variant = "success";
