@@ -31,13 +31,6 @@ import { getMe, getConversations, getUsers } from "../actions";
 import "./App.scss";
 
 class App extends React.Component {
-  componentDidMount() {
-    console.log(process.env.REACT_APP_PUSHER_KEY);
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.REACT_APP_PUSHER_CLUSTER);
-    console.log(process.env.test);
-  }
-
   componentDidUpdate() {
     if (!this.props.auth.user) {
       this.props.getMe();
