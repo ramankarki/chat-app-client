@@ -31,6 +31,10 @@ import { getMe, getConversations, getUsers } from "../actions";
 import "./App.scss";
 
 class App extends React.Component {
+  componentDidMount() {
+    console.log(process.env.PUSHER_KEY);
+  }
+
   componentDidUpdate() {
     if (!this.props.auth.user) {
       this.props.getMe();
