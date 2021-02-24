@@ -35,6 +35,7 @@ class App extends React.Component {
     console.log(process.env.PUSHER_KEY);
     console.log(process.env.NODE_ENV);
     console.log(process.env.PUSHER_CLUSTER);
+    console.log(process.env.test);
   }
 
   componentDidUpdate() {
