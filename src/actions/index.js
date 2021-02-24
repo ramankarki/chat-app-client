@@ -819,3 +819,22 @@ export const saveNewPassword = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const logout = () => async (dispatch, getState) => {
+  dispatch({
+    type: AUTH_USER,
+    payload: {},
+  });
+
+  dispatch({
+    type: CONVERSATIONS,
+    payload: { data: [], notifications: 0 },
+  });
+
+  dispatch({
+    type: USERS,
+    payload: [],
+  });
+
+  await axios.get("/api/v1/users/logout");
+};
