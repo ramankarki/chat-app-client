@@ -11,6 +11,7 @@ import {
   ACTIVE_CONVERSATION,
   MESSAGE_DATA,
   PROFILE_DATA,
+  CHANGE_PASSWORD,
 } from "../actions/types";
 
 export default combineReducers({
@@ -26,5 +27,10 @@ export default combineReducers({
   profileData: commonReducer(PROFILE_DATA, {
     username: "",
     email: "",
+  }),
+  changePassword: commonReducer(CHANGE_PASSWORD, {
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   }),
 });
