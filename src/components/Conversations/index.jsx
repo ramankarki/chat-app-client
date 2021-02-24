@@ -204,10 +204,12 @@ class Conversations extends Component {
   };
 
   onunload = () => {
-    this.props.updateOnlineState(false);
-    this.userChannel.unsubscribe();
-    this.conversationChannel.unsubscribe();
-    this.messageChannel.unsubscribe();
+    setTimeout(() => {
+      this.props.updateOnlineState(false);
+      this.userChannel.unsubscribe();
+      this.conversationChannel.unsubscribe();
+      this.messageChannel.unsubscribe();
+    }, 500);
   };
 
   componentDidMount() {
