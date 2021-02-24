@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { updateProfile, changePassword } from "../../utils/Routes";
+import { updateProfile, changePassword, login } from "../../utils/Routes";
+import { logout } from "../../actions";
 import defaultAvatar from "../avatar.svg";
 import logo from "../logo.png";
 
@@ -54,7 +55,9 @@ class index extends Component {
               <Link to={changePassword} className="change-password">
                 Change password
               </Link>
-              <Link className="logout">Logout</Link>
+              <Link to={login} onClick={this.props.logout} className="logout">
+                Logout
+              </Link>
             </div>
           ) : null}
         </picture>
@@ -68,4 +71,4 @@ const mapStateToProps = ({ auth }) => {
   return { auth };
 };
 
-export default connect(mapStateToProps)(index);
+export default connect(mapStateToProps, { logout })(index);
