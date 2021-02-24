@@ -1,10 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
+import { updateProfile } from "../../utils/Routes";
 import defaultAvatar from "../avatar.svg";
 import logo from "../logo.png";
 
 class index extends Component {
+  state = { isOptionsActive: false };
+
+  setOptionsActive = () => {
+    this.setState({ isOptionsActive: !this.state.isOptionsActive });
+  };
+
   bufferToBase64(buffer) {
     let binary = "";
     let bytes = new Uint8Array(buffer);
@@ -28,8 +36,9 @@ class index extends Component {
   render() {
     return (
       <aside className="profile-bar">
-        <picture>
+        <picture className="profile-bar-avatar">
           <img
+            onClick={this.setOptionsActive}
             className="default-avatar"
             src={this.userAvatar(this.props.auth.user) || defaultAvatar}
             alt="default avatar"
@@ -37,6 +46,15 @@ class index extends Component {
           <p className="profile-bar-username">
             {this.props.auth.user?.username || "raman karki"}
           </p>
+          {this.state.isOptionsActive ? (
+            <div className="profile-bar-options">
+              <Link to={updateProfile} className="profile">
+                Profile
+              </Link>
+              <Link className="change-password">Change password</Link>
+              <Link className="logout">Logout</Link>
+            </div>
+          ) : null}
         </picture>
         <img className="profile-bar-logo" src={logo} alt="logo" />
       </aside>
