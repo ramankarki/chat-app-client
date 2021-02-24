@@ -838,3 +838,17 @@ export const logout = () => async (dispatch, getState) => {
 
   await axios.get("/api/v1/users/logout");
 };
+
+export const deleteAccount = () => async (dispatch, getState) => {
+  const { auth } = getState();
+
+  try {
+    await axios.delete("/api/v1/users/deleteMe", {
+      headers: {
+        authorization: `Bearer ${auth.token}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
