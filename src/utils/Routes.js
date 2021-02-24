@@ -7,3 +7,4 @@ export const resetpassword = "/users/resetpassword/:token";
 export const emailConfirmation = "/users/emailConfirmation";
 export const conversations = "/conversations";
 export const updateProfile = "/users/profile/me";
+export const changePassword = "/users/profile/me/changePassword";
