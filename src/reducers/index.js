@@ -10,6 +10,7 @@ import {
   USERS,
   ACTIVE_CONVERSATION,
   MESSAGE_DATA,
+  PROFILE_DATA,
 } from "../actions/types";
 
 export default combineReducers({
@@ -22,4 +23,8 @@ export default combineReducers({
   users: commonReducer(USERS, []),
   activeConversation: commonReducer(ACTIVE_CONVERSATION, null),
   message: commonReducer(MESSAGE_DATA, { message: "", state: "" }),
+  profileData: commonReducer(PROFILE_DATA, {
+    username: "",
+    email: "",
+  }),
 });
