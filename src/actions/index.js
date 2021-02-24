@@ -698,6 +698,8 @@ export const saveProfileData = () => async (dispatch, getState) => {
         authorization: `Bearer ${auth.token}`,
       },
     });
+
+    if (userAvatar.files.length) window.location.reload();
   } catch (err) {
     console.log(err);
   }
