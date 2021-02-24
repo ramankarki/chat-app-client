@@ -114,7 +114,10 @@ class index extends Component {
                 </label>
               </picture>
               <div className="profile-form-fields">
-                <p className="joined-at">Joined at: 2020/20/20</p>
+                <p className="joined-at">
+                  Joined at:{" "}
+                  {new Date(this.props.auth.user.joinedAt).toDateString()}
+                </p>
                 <input
                   type="text"
                   placeholder="Username"
