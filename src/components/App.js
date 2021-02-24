@@ -32,9 +32,9 @@ import "./App.scss";
 
 class App extends React.Component {
   componentDidMount() {
-    console.log(process.env.PUSHER_KEY);
+    console.log(process.env.REACT_APP_PUSHER_KEY);
     console.log(process.env.NODE_ENV);
-    console.log(process.env.PUSHER_CLUSTER);
+    console.log(process.env.REACT_APP_PUSHER_CLUSTER);
     console.log(process.env.test);
   }
 
