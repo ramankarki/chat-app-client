@@ -692,6 +692,14 @@ export const saveProfileData = () => async (dispatch, getState) => {
     formData.append("avatar", userAvatar.files[0]);
   }
 
+  dispatch({
+    type: PROFILE_DATA,
+    payload: {
+      ...profileData,
+      state: "saving",
+    },
+  });
+
   try {
     await axios.patch("/api/v1/users/updateMe", formData, {
       headers: {
@@ -699,8 +707,33 @@ export const saveProfileData = () => async (dispatch, getState) => {
       },
     });
 
+    dispatch({
+      type: PROFILE_DATA,
+      payload: {
+        ...profileData,
+        state: "saved",
+      },
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: PROFILE_DATA,
+        payload: {
+          ...profileData,
+          state: "",
+        },
+      });
+    }, 3000);
+
     if (userAvatar.files.length) window.location.reload();
   } catch (err) {
+    dispatch({
+      type: PROFILE_DATA,
+      payload: {
+        ...profileData,
+        state: "failed",
+      },
+    });
     console.log(err);
   }
 };
