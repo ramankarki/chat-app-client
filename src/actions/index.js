@@ -10,6 +10,7 @@ import {
   ACTIVE_CONVERSATION,
   MESSAGE_DATA,
   PROFILE_DATA,
+  CHANGE_PASSWORD,
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
@@ -735,5 +736,86 @@ export const saveProfileData = () => async (dispatch, getState) => {
       },
     });
     console.log(err);
+  }
+};
+
+export const setChangePasswordData = (
+  currentPassword,
+  newPassword,
+  confirmPassword
+) => {
+  return {
+    type: CHANGE_PASSWORD,
+    payload: {
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    },
+  };
+};
+
+export const saveNewPassword = () => async (dispatch, getState) => {
+  const { changePassword, auth } = getState();
+
+  if (changePassword.newPassword.length < 12) {
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: {
+        ...changePassword,
+        state: "validation,New password length should be greater than 12.",
+      },
+    });
+    return;
+  } else if (changePassword.newPassword !== changePassword.confirmPassword) {
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: {
+        ...changePassword,
+        state: "validation,New password and Confirm password are not same.",
+      },
+    });
+    return;
+  }
+
+  dispatch({
+    type: CHANGE_PASSWORD,
+    payload: {
+      ...changePassword,
+      state: "saving",
+    },
+  });
+
+  try {
+    await axios.patch("/api/v1/users/updatePassword", changePassword, {
+      headers: {
+        authorization: `Bearer ${auth.token}`,
+      },
+    });
+
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: {
+        ...changePassword,
+        state: "saved",
+      },
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: CHANGE_PASSWORD,
+        payload: {
+          ...changePassword,
+          state: "",
+        },
+      });
+    }, 3000);
+  } catch (err) {
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: {
+        ...changePassword,
+        state: "failed",
+      },
+    });
   }
 };
