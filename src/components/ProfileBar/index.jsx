@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { updateProfile } from "../../utils/Routes";
+import { updateProfile, changePassword } from "../../utils/Routes";
 import defaultAvatar from "../avatar.svg";
 import logo from "../logo.png";
 
@@ -51,7 +51,9 @@ class index extends Component {
               <Link to={updateProfile} className="profile">
                 Profile
               </Link>
-              <Link className="change-password">Change password</Link>
+              <Link to={changePassword} className="change-password">
+                Change password
+              </Link>
               <Link className="logout">Logout</Link>
             </div>
           ) : null}
