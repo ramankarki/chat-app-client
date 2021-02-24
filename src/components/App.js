@@ -10,6 +10,7 @@ import {
   emailConfirmation,
   activateAccount,
   conversations,
+  updateProfile,
 } from "../utils/Routes";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,6 +24,7 @@ import EmailConfirmation from "./AuthComponent/EmailConfirmation";
 import ActivateAccount from "./AuthComponent/ActivateAccount";
 import Conversations from "./Conversations";
 import Homepage from "./Homepage/Homepage";
+import Profile from "./Profile";
 import { getMe, getConversations, getUsers } from "../actions";
 import "./App.scss";
 
@@ -67,6 +69,7 @@ class App extends React.Component {
             </AuthComponent>
           </Route>
           <Route path={conversations} exact component={Conversations} />
+          <Route path={updateProfile} exact component={Profile} />
         </HashRouter>
       </div>
     );
