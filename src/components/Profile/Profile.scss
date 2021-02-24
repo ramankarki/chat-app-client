@@ -161,13 +161,17 @@
         font-size: 0.95rem;
         padding: 0.7rem 1rem;
         border-radius: 1rem;
-        border: none;
+        border: 1px solid transparent;
         margin: 0.8rem 0;
         color: $primary-text-color;
         outline: none;
 
         &::placeholder {
           color: $secondary-text-color;
+        }
+
+        &:focus {
+          border-color: $primary-app-color;
         }
       }
 
