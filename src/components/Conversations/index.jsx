@@ -12,6 +12,7 @@ import {
   userUpdated,
   userDeleted,
   conversationInserted,
+  conversationDeleted,
   messageInserted,
   updateOnlineState,
   addEmoji,
@@ -238,8 +239,8 @@ class Conversations extends Component {
       this.props.conversationInserted(data);
     });
 
-    this.conversationChannel.bind("updated", (data) => {
-      this.props.conversationInserted(data._id);
+    this.conversationChannel.bind("deleted", (data) => {
+      this.props.conversationDeleted(data._id);
     });
 
     this.messageChannel.bind("inserted", (data) => {
@@ -448,6 +449,7 @@ export default connect(mapStateToProps, {
   userUpdated,
   userDeleted,
   conversationInserted,
+  conversationDeleted,
   messageInserted,
   updateOnlineState,
   addEmoji,
