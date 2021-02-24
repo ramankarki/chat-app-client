@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { setProfileData, saveProfileData } from "../../actions";
+import {
+  setProfileData,
+  saveProfileData,
+  deleteAccount,
+  logout,
+} from "../../actions";
 import { conversations, login } from "../../utils/Routes";
 import history from "../../utils/history";
 import ProfileBar from "../ProfileBar";
@@ -12,7 +17,12 @@ import spinner from "../spinner.svg";
 import "./Profile.scss";
 
 class index extends Component {
+  state = { deleteAccountModal: false, deleteAccountLoading: false };
   profileAvatar = React.createRef();
+
+  setDeleteAccountModal = () => {
+    this.setState({ deleteAccountModal: !this.state.deleteAccountModal });
+  };
 
   onFieldChange = (event, field) => {
     const { profileData } = this.props;
@@ -56,6 +66,12 @@ class index extends Component {
     }
 
     return null;
+  };
+
+  deleteMe = () => {
+    this.setState({ deleteAccountLoading: true });
+    this.props.deleteAccount();
+    this.props.logout();
   };
 
   componentDidMount() {
@@ -149,8 +165,36 @@ class index extends Component {
                 </button>
               </div>
             </form>
+            <button
+              onClick={this.setDeleteAccountModal}
+              className="delete-account-btn"
+            >
+              Delete Account
+            </button>
           </div>
         </div>
+        {this.state.deleteAccountModal ? (
+          <div className="delete-account-modal-bg">
+            <div className="delete-account-modal">
+              <h3>Delete Account</h3>
+              <p>Are you sure you want to delete your account ?</p>
+              <button onClick={this.deleteMe} className="delete">
+                {this.state.deleteAccountLoading ? (
+                  <img
+                    className="icon-spinner"
+                    src={spinner}
+                    alt="spinner icon svg"
+                  />
+                ) : (
+                  "Delete"
+                )}
+              </button>
+              <button onClick={this.setDeleteAccountModal} className="cancel">
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -160,6 +204,9 @@ const mapStateToProps = ({ auth, profileData }) => {
   return { auth, profileData };
 };
 
-export default connect(mapStateToProps, { setProfileData, saveProfileData })(
-  index
-);
+export default connect(mapStateToProps, {
+  setProfileData,
+  saveProfileData,
+  deleteAccount,
+  logout,
+})(index);
