@@ -1,0 +1,195 @@
+@import "../_variables";
+
+.profile {
+  display: flex;
+  max-height: 100vh;
+
+  &-mainWrapper {
+    overflow: auto;
+    min-width: 0;
+    width: 100%;
+    background-color: $secondary-app-color;
+  }
+
+  &-formWrapper {
+    width: 85%;
+    margin: auto;
+    height: 100%;
+    padding: 0;
+    border: 1px solid $secondary-app-color;
+    position: relative;
+
+    @media (min-width: 768px) {
+      width: 80%;
+    }
+
+    .back-to-conversation {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      color: $primary-app-darker-color;
+      font-size: 0.9rem;
+      max-width: max-content;
+      text-decoration: none;
+
+      @media (min-width: 768px) {
+        margin-top: 1.5rem;
+      }
+
+      i {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+
+      span {
+        margin-top: 0.3rem;
+      }
+    }
+
+    .notification {
+      max-width: max-content;
+      max-height: max-content;
+      top: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &-heading {
+    text-align: center;
+    margin: 2rem 0;
+    color: $primary-text-color;
+
+    @media (max-width: 767px) {
+      font-size: 1.5rem;
+    }
+
+    @media (min-width: 992px) {
+      margin-top: 4rem;
+    }
+  }
+
+  &-form {
+    display: flex;
+    padding: 0;
+    max-width: 600px;
+    margin: auto;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      padding: 0 0 4rem;
+    }
+
+    &-avatar {
+      width: 80%;
+      height: 100%;
+      border: 3px solid $secondary-app-color;
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 100rem;
+      position: relative;
+      overflow: hidden;
+
+      @media (max-width: 767px) {
+        margin: auto;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+      }
+
+      label {
+        position: absolute;
+        bottom: -0.6rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: $primary-app-color;
+        color: $secondary-app-color;
+        padding: 0.7rem 0;
+        cursor: pointer;
+
+        @media (min-width: 768px) {
+          &:hover {
+            background-color: $primary-app-darker-color;
+          }
+        }
+
+        input {
+          display: none;
+        }
+      }
+    }
+
+    &-fields {
+      max-width: 400px;
+      width: 100%;
+      margin-left: 2rem;
+
+      @media (max-width: 767px) {
+        margin: auto;
+        margin-top: 2rem;
+      }
+
+      .joined-at {
+        font-size: 0.85rem;
+        color: $secondary-text-color;
+      }
+
+      input,
+      button {
+        max-width: 400px;
+        width: 100%;
+        display: block;
+      }
+
+      input {
+        font-size: 0.95rem;
+        padding: 0.7rem 1rem;
+        border-radius: 1rem;
+        border: none;
+        margin: 0.8rem 0;
+        color: $primary-text-color;
+        outline: none;
+
+        &::placeholder {
+          color: $secondary-text-color;
+        }
+      }
+
+      button {
+        padding: 0.7rem 1.8rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 100rem;
+        margin-top: 2rem;
+        background-color: $primary-app-color;
+        color: $secondary-app-color;
+        outline: none;
+        width: 100px;
+
+        @media (min-width: 768px) {
+          &:hover {
+            background-color: $primary-app-darker-color;
+          }
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+}
