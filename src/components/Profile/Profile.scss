@@ -47,12 +47,14 @@
     }
 
     .notification {
-      max-width: max-content;
+      width: max-content;
+      max-width: 80%;
       max-height: max-content;
       top: 3rem;
       left: 50%;
       transform: translateX(-50%);
-      position: absolute;
+      position: fixed;
+      z-index: 3;
 
       p {
         margin: 0;
