@@ -575,26 +575,6 @@ export const messageInserted = (doc) => (dispatch, getState) => {
   }
 };
 
-export const updateOnlineState = (state) => async (dispatch, getState) => {
-  const token = localStorage.getItem("token");
-
-  try {
-    await axios.patch(
-      "/api/v1/users/updateMe",
-      {
-        isUserActive: state,
-      },
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const addEmoji = (id) => (dispatch, getState) => {
   const { message } = getState();
 
