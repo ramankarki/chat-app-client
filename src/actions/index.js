@@ -141,7 +141,7 @@ export const activateAccount = (token) => async (dispatch) => {
 
     history.push("/conversations");
 
-    loadDataHelper(dispatch, user.data.token, true, true);
+    loadDataHelper(dispatch, user.data.token, true, true, user.data.user);
   } catch (err) {
     dispatch({
       type: NEW_USER_DATA,
@@ -198,7 +198,7 @@ export const loginUser = () => async (dispatch, getState) => {
 
     history.push("/conversations");
 
-    loadDataHelper(dispatch, user.data.token, true, true);
+    loadDataHelper(dispatch, user.data.token, true, true, user.data.user);
   } catch (err) {
     dispatch({
       type: LOGIN_USER_DATA,
@@ -306,7 +306,7 @@ export const resetPassword = (token) => async (dispatch, getState) => {
 
     history.push("/conversations");
 
-    loadDataHelper(dispatch, user.data.token, true, true);
+    loadDataHelper(dispatch, user.data.token, true, true, user.data.user);
   } catch (err) {
     dispatch({
       type: RESET_PASSWORD_DATA,
@@ -799,5 +799,5 @@ export const deleteAccount = () => async (dispatch, getState) => {
 
 export const loadData = () => async (dispatch) => {
   const token = localStorage.getItem("token");
-  loadDataHelper(dispatch, token, true, true, true);
+  loadDataHelper(dispatch, token, true, true, false, true);
 };
