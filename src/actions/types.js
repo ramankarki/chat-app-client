@@ -10,6 +10,7 @@ export const ACTIVE_CONVERSATION = "ACTIVE_CONVERSATION";
 export const MESSAGE_DATA = "MESSAGE_DATA";
 export const PROFILE_DATA = "PROFILE_DATA";
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const APP_DATA_LOADING = "APP_DATA_LOADING";
 
 export const newUserDataState = {
   emptyFields: "empty fields",
