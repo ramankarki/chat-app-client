@@ -14,7 +14,7 @@ import {
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
-import { emailConfirmation, conversations } from "../utils/Routes";
+import { emailConfirmation } from "../utils/Routes";
 import EMOJIS from "../utils/emojis";
 import { saveToken } from "./helper";
 
@@ -139,7 +139,7 @@ export const activateAccount = (token) => async (dispatch) => {
 
     saveToken(user.data.token);
 
-    history.push(conversations);
+    history.push("/conversations");
   } catch (err) {
     dispatch({
       type: NEW_USER_DATA,
@@ -188,14 +188,47 @@ export const loginUser = () => async (dispatch, getState) => {
     dispatch({
       type: AUTH_USER,
       payload: {
-        token: user.data.token,
         user: user.data.user,
       },
     });
 
     saveToken(user.data.token);
 
-    history.push(conversations);
+    history.push("/conversations");
+
+    const users = await axios.get("/api/v1/users", {
+      headers: {
+        authorization: `Bearer ${user.data.token}`,
+      },
+    });
+
+    dispatch({
+      type: USERS,
+      payload: [...users.data.users],
+    });
+
+    const conversations = await axios.get("/api/v1/conversations", {
+      headers: {
+        authorization: `Bearer ${user.data.token}`,
+      },
+    });
+
+    let count = 0;
+    conversations.data.conversations.forEach((con) => {
+      const lastMsg = con.messages[con.messages.length - 1];
+
+      if (!lastMsg || lastMsg.user !== user.data.user._id) {
+        count++;
+      }
+    });
+
+    dispatch({
+      type: CONVERSATIONS,
+      payload: {
+        data: conversations.data.conversations,
+        notifications: count,
+      },
+    });
   } catch (err) {
     dispatch({
       type: LOGIN_USER_DATA,
@@ -301,7 +334,7 @@ export const resetPassword = (token) => async (dispatch, getState) => {
 
     saveToken(user.data.token);
 
-    history.push(conversations);
+    history.push("/conversations");
   } catch (err) {
     dispatch({
       type: RESET_PASSWORD_DATA,
@@ -773,7 +806,7 @@ export const logout = () => async (dispatch, getState) => {
     payload: [],
   });
 
-  localStorage.clear();
+  localStorage.setItem("token", "");
 
   await axios.get("/api/v1/users/logout");
 };
