@@ -16,7 +16,7 @@ import axios from "../utils/axios";
 import history from "../utils/history";
 import { emailConfirmation } from "../utils/Routes";
 import EMOJIS from "../utils/emojis";
-import { saveToken } from "./helper";
+import { saveToken, loadDataHelper } from "./helper";
 
 export const setNewUserData = (
   newUser,
@@ -140,6 +140,8 @@ export const activateAccount = (token) => async (dispatch) => {
     saveToken(user.data.token);
 
     history.push("/conversations");
+
+    loadDataHelper(dispatch, user.data.token, true, true);
   } catch (err) {
     dispatch({
       type: NEW_USER_DATA,
@@ -196,39 +198,7 @@ export const loginUser = () => async (dispatch, getState) => {
 
     history.push("/conversations");
 
-    const users = await axios.get("/api/v1/users", {
-      headers: {
-        authorization: `Bearer ${user.data.token}`,
-      },
-    });
-
-    dispatch({
-      type: USERS,
-      payload: [...users.data.users],
-    });
-
-    const conversations = await axios.get("/api/v1/conversations", {
-      headers: {
-        authorization: `Bearer ${user.data.token}`,
-      },
-    });
-
-    let count = 0;
-    conversations.data.conversations.forEach((con) => {
-      const lastMsg = con.messages[con.messages.length - 1];
-
-      if (!lastMsg || lastMsg.user !== user.data.user._id) {
-        count++;
-      }
-    });
-
-    dispatch({
-      type: CONVERSATIONS,
-      payload: {
-        data: conversations.data.conversations,
-        notifications: count,
-      },
-    });
+    loadDataHelper(dispatch, user.data.token, true, true);
   } catch (err) {
     dispatch({
       type: LOGIN_USER_DATA,
@@ -335,6 +305,8 @@ export const resetPassword = (token) => async (dispatch, getState) => {
     saveToken(user.data.token);
 
     history.push("/conversations");
+
+    loadDataHelper(dispatch, user.data.token, true, true);
   } catch (err) {
     dispatch({
       type: RESET_PASSWORD_DATA,
@@ -827,55 +799,5 @@ export const deleteAccount = () => async (dispatch, getState) => {
 
 export const loadData = () => async (dispatch) => {
   const token = localStorage.getItem("token");
-
-  try {
-    const me = await axios.get("/api/v1/users/me", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-
-    dispatch({
-      type: AUTH_USER,
-      payload: {
-        user: me.data.user,
-      },
-    });
-
-    const users = await axios.get("/api/v1/users", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-
-    dispatch({
-      type: USERS,
-      payload: [...users.data.users],
-    });
-
-    const conversations = await axios.get("/api/v1/conversations", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-
-    let count = 0;
-    conversations.data.conversations.forEach((con) => {
-      const lastMsg = con.messages[con.messages.length - 1];
-
-      if (!lastMsg || lastMsg.user !== me.data.user._id) {
-        count++;
-      }
-    });
-
-    dispatch({
-      type: CONVERSATIONS,
-      payload: {
-        data: conversations.data.conversations,
-        notifications: count,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  loadDataHelper(dispatch, token, true, true, true);
 };
