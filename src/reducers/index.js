@@ -12,6 +12,7 @@ import {
   MESSAGE_DATA,
   PROFILE_DATA,
   CHANGE_PASSWORD,
+  APP_DATA_LOADING,
 } from "../actions/types";
 
 export default combineReducers({
@@ -33,4 +34,5 @@ export default combineReducers({
     newPassword: "",
     confirmPassword: "",
   }),
+  appDataLoading: commonReducer(APP_DATA_LOADING, ""),
 });
