@@ -728,11 +728,17 @@ export const saveNewPassword = () => async (dispatch, getState) => {
   const token = localStorage.getItem("token");
 
   try {
-    await axios.patch("/api/v1/users/updatePassword", changePassword, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const user = await axios.patch(
+      "/api/v1/users/updatePassword",
+      changePassword,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    saveToken(user.data.token);
 
     dispatch({
       type: CHANGE_PASSWORD,
