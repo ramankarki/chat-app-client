@@ -36,11 +36,6 @@ class ConversationCard extends React.Component {
       >
         <picture className="conversation-card-avatar">
           <img src={this.props.userAvatar} alt="default avatar for users" />
-          <span
-            className={
-              this.props.isOnline ? "conversation-card-avatar-active-color" : ""
-            }
-          ></span>
         </picture>
         <div className="conversation-card-usertext">
           <h6 className="conversation-card-username">{this.props.username}</h6>
