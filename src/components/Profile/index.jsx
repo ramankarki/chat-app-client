@@ -9,12 +9,12 @@ import {
   logout,
 } from "../../actions";
 import { conversations, login } from "../../utils/Routes";
-import history from "../../utils/history";
 import ProfileBar from "../ProfileBar";
 import defaultAvatar from "../avatar.svg";
 import Alert from "react-bootstrap/Alert";
 import spinner from "../spinner.svg";
 import "./Profile.scss";
+import history from "../../utils/history";
 
 class index extends Component {
   state = { deleteAccountModal: false, deleteAccountLoading: false };
@@ -75,7 +75,7 @@ class index extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.auth.user) history.push(login);
+    if (!localStorage.getItem("token")) history.push(login);
 
     if (this.props.auth.user)
       this.props.setProfileData(

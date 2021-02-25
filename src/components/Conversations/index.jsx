@@ -4,8 +4,6 @@ import Pusher from "pusher-js";
 
 import ProfileBar from "../ProfileBar";
 import {
-  getUsers,
-  getConversations,
   setMessageData,
   sendMessage,
   userInserted,
@@ -14,7 +12,6 @@ import {
   conversationInserted,
   conversationDeleted,
   messageInserted,
-  updateOnlineState,
   addEmoji,
 } from "../../actions";
 import keys from "../../config";
@@ -25,6 +22,8 @@ import defaultAvatar from "../avatar.svg";
 import sendMessageIcon from "../send.svg";
 import spinner from "../spinner.svg";
 import "./Conversations.scss";
+import { login } from "../../utils/Routes";
+import history from "../../utils/history";
 
 class Conversations extends Component {
   state = {
@@ -214,9 +213,9 @@ class Conversations extends Component {
   };
 
   componentDidMount() {
-    this.props.getUsers();
-    this.props.getConversations();
-    this.props.updateOnlineState(true);
+    if (!localStorage.getItem("token")) {
+      history.push(login);
+    }
 
     const pusher = new Pusher(keys.PUSHER_KEY, {
       cluster: keys.PUSHER_CLUSTER,
@@ -452,8 +451,6 @@ const mapStateToProps = ({
 };
 
 export default connect(mapStateToProps, {
-  getUsers,
-  getConversations,
   setMessageData,
   sendMessage,
   userInserted,
@@ -462,6 +459,5 @@ export default connect(mapStateToProps, {
   conversationInserted,
   conversationDeleted,
   messageInserted,
-  updateOnlineState,
   addEmoji,
 })(Conversations);

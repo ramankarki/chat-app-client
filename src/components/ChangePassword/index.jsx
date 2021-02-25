@@ -41,7 +41,7 @@ class index extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.auth.user) {
+    if (!localStorage.getItem("token")) {
       history.push(login);
     }
   }
