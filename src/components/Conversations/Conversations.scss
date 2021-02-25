@@ -441,17 +441,6 @@ $break-point: 768px;
       height: auto;
       border-radius: 100rem;
     }
-
-    &-active-color {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 100rem;
-      bottom: 1px;
-      right: 1px;
-      border: 1px solid $secondary-text-color;
-      background-color: #5eff44;
-    }
   }
 
   &-usertext {
