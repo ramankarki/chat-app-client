@@ -325,6 +325,12 @@ $break-point: 768px;
     display: flex;
     align-items: center;
 
+    @media (max-width: 767px) {
+      &-active {
+        padding-bottom: 4rem;
+      }
+    }
+
     &-field {
       border: 1px solid rgba(188, 184, 190, 0.644);
       border-radius: 100rem;

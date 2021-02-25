@@ -31,6 +31,7 @@ class Conversations extends Component {
     activeTab: "people",
     messageContainerClass: "message-container",
     isEmojiActive: false,
+    isMsgFormActive: false,
   };
 
   messageContainer = React.createRef();
@@ -375,7 +376,13 @@ class Conversations extends Component {
                 </p>
                 {this.renderMessages()}
               </main>
-              <footer className="message-messageForm">
+              <footer
+                className={
+                  this.state.isMsgFormActive
+                    ? "message-messageForm message-messageForm-active"
+                    : "message-messageForm"
+                }
+              >
                 <form
                   onSubmit={this.onMessageSubmit}
                   className="message-messageForm-field"
@@ -388,6 +395,8 @@ class Conversations extends Component {
                     onChange={(event) =>
                       this.props.setMessageData(event.target.value, "typing")
                     }
+                    onFocus={() => this.setState({ isMsgFormActive: true })}
+                    onBlur={() => this.setState({ isMsgFormActive: false })}
                   />
 
                   <i
