@@ -1,12 +1,24 @@
 import axios from "../utils/axios";
-import { AUTH_USER, USERS, CONVERSATIONS } from "./types";
+import { AUTH_USER, USERS, CONVERSATIONS, APP_DATA_LOADING } from "./types";
 
 export const saveToken = (token) => {
   localStorage.setItem("token", token);
   localStorage.setItem("exp", Date.now() + 30 * 24 * 60 * 60 * 1000);
 };
 
-export const loadDataHelper = async (dispatch, token, cons, users, me) => {
+export const loadDataHelper = async (
+  dispatch,
+  token,
+  cons,
+  users,
+  user,
+  me
+) => {
+  dispatch({
+    type: APP_DATA_LOADING,
+    payload: "loading",
+  });
+
   try {
     if (me) {
       const me = await axios.get("/api/v1/users/me", {
@@ -21,6 +33,8 @@ export const loadDataHelper = async (dispatch, token, cons, users, me) => {
           user: me.data.user,
         },
       });
+
+      user = me.data.user;
     }
 
     if (users) {
@@ -43,11 +57,14 @@ export const loadDataHelper = async (dispatch, token, cons, users, me) => {
         },
       });
 
+      console.log(conversations);
+
       let count = 0;
       conversations.data.conversations.forEach((con) => {
         const lastMsg = con.messages[con.messages.length - 1];
+        console.log(lastMsg.user);
 
-        if (!lastMsg || lastMsg.user !== me.data.user._id) {
+        if (!lastMsg || lastMsg.user !== user._id) {
           count++;
         }
       });
@@ -60,7 +77,16 @@ export const loadDataHelper = async (dispatch, token, cons, users, me) => {
         },
       });
     }
+
+    dispatch({
+      type: APP_DATA_LOADING,
+      payload: "loaded",
+    });
   } catch (err) {
+    dispatch({
+      type: APP_DATA_LOADING,
+      payload: "failed",
+    });
     console.log(err);
   }
 };
