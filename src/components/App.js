@@ -27,7 +27,7 @@ import Conversations from "./Conversations";
 import Homepage from "./Homepage/Homepage";
 import Profile from "./Profile";
 import ChangePassword from "./ChangePassword";
-import { loadData, updateOnlineState } from "../actions";
+import { loadData } from "../actions";
 import history from "../utils/history";
 import "./App.scss";
 
@@ -41,7 +41,6 @@ class App extends React.Component {
     if (+exp >= Date.now()) {
       history.push(conversations);
       this.props.loadData();
-      this.props.updateOnlineState(true);
     } else {
       history.push(login);
     }
@@ -93,5 +92,4 @@ const mapStateToProps = ({ auth }) => {
 
 export default connect(mapStateToProps, {
   loadData,
-  updateOnlineState,
 })(App);
