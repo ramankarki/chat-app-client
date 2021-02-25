@@ -435,6 +435,19 @@ class Conversations extends Component {
             </div>
           )}
         </section>
+        {this.props.appDataLoading !== "loaded" ? (
+          <div className="app-data-loading">
+            {this.props.appDataLoading === "failed" ? (
+              <p>Something went wrong ! Try reloading this page</p>
+            ) : (
+              <img
+                className="icon-spinner"
+                src={spinner}
+                alt="spinner icon svg"
+              />
+            )}
+          </div>
+        ) : null}
       </div>
     );
   }
@@ -446,8 +459,16 @@ const mapStateToProps = ({
   conversations,
   activeConversation,
   message,
+  appDataLoading,
 }) => {
-  return { auth, users, conversations, activeConversation, message };
+  return {
+    auth,
+    users,
+    conversations,
+    activeConversation,
+    message,
+    appDataLoading,
+  };
 };
 
 export default connect(mapStateToProps, {
