@@ -203,15 +203,6 @@ class Conversations extends Component {
     }
   };
 
-  onunload = () => {
-    setTimeout(() => {
-      this.props.updateOnlineState(false);
-      this.userChannel.unsubscribe();
-      this.conversationChannel.unsubscribe();
-      this.messageChannel.unsubscribe();
-    }, 500);
-  };
-
   componentDidMount() {
     if (!localStorage.getItem("token")) {
       history.push(login);
@@ -248,14 +239,6 @@ class Conversations extends Component {
     this.messageChannel.bind("inserted", (data) => {
       this.props.messageInserted(data);
     });
-
-    window.onbeforeunload = () => {
-      this.onunload();
-    };
-
-    window.onunload = () => {
-      this.onunload();
-    };
   }
 
   componentDidUpdate() {
