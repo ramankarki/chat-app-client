@@ -57,12 +57,9 @@ export const loadDataHelper = async (
         },
       });
 
-      console.log(conversations);
-
       let count = 0;
       conversations.data.conversations.forEach((con) => {
         const lastMsg = con.messages[con.messages.length - 1];
-        console.log(lastMsg.user);
 
         if (!lastMsg || lastMsg.user !== user._id) {
           count++;
