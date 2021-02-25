@@ -27,15 +27,23 @@ import Conversations from "./Conversations";
 import Homepage from "./Homepage/Homepage";
 import Profile from "./Profile";
 import ChangePassword from "./ChangePassword";
-import { getMe, getConversations, getUsers } from "../actions";
+import { loadData, updateOnlineState } from "../actions";
+import history from "../utils/history";
 import "./App.scss";
 
 class App extends React.Component {
-  componentDidUpdate() {
-    if (!this.props.auth.user) {
-      this.props.getMe();
-      this.props.getUsers();
-      this.props.getConversations();
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (!token) return history.push(login);
+
+    const exp = localStorage.getItem("exp");
+
+    if (+exp >= Date.now()) {
+      history.push(conversations);
+      this.props.loadData();
+      this.props.updateOnlineState(true);
+    } else {
+      history.push(login);
     }
   }
 
@@ -84,7 +92,6 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  getMe,
-  getConversations,
-  getUsers,
+  loadData,
+  updateOnlineState,
 })(App);
