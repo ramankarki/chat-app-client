@@ -14,8 +14,9 @@ import {
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
-import { emailConfirmation, conversations, login } from "../utils/Routes";
+import { emailConfirmation, conversations } from "../utils/Routes";
 import EMOJIS from "../utils/emojis";
+import { saveToken } from "./helper";
 
 export const setNewUserData = (
   newUser,
@@ -135,6 +136,9 @@ export const activateAccount = (token) => async (dispatch) => {
         state: newUserDataState.accountActivated,
       },
     });
+
+    saveToken(user.data.token);
+
     history.push(conversations);
   } catch (err) {
     dispatch({
@@ -188,6 +192,8 @@ export const loginUser = () => async (dispatch, getState) => {
         user: user.data.user,
       },
     });
+
+    saveToken(user.data.token);
 
     history.push(conversations);
   } catch (err) {
@@ -293,6 +299,8 @@ export const resetPassword = (token) => async (dispatch, getState) => {
       },
     });
 
+    saveToken(user.data.token);
+
     history.push(conversations);
   } catch (err) {
     dispatch({
@@ -305,85 +313,6 @@ export const resetPassword = (token) => async (dispatch, getState) => {
   }
 };
 
-export const getMe = () => async (dispatch, getState) => {
-  const { auth } = getState();
-  try {
-    const updateActiveState = await axios.patch(
-      "/api/v1/users/updateMe",
-      {
-        isUserActive: true,
-      },
-      {
-        headers: {
-          authorization: `Bearer ${auth.token}`,
-        },
-      }
-    );
-
-    dispatch({
-      type: AUTH_USER,
-      payload: {
-        ...auth,
-        user: updateActiveState.data.user,
-      },
-    });
-    history.push(conversations);
-  } catch (err) {
-    history.push(login);
-    console.log(err);
-  }
-};
-
-export const getConversations = () => async (dispatch, getState) => {
-  const { auth } = getState();
-
-  try {
-    const conversations = await axios.get("/api/v1/conversations", {
-      headers: {
-        authorization: `Bearer ${auth.token}`,
-      },
-    });
-
-    let count = 0;
-    conversations.data.conversations.forEach((con) => {
-      const lastMsg = con.messages[con.messages.length - 1];
-
-      if (!lastMsg || lastMsg.user !== auth.user._id) {
-        count++;
-      }
-    });
-
-    dispatch({
-      type: CONVERSATIONS,
-      payload: {
-        data: conversations.data.conversations,
-        notifications: count,
-      },
-    });
-  } catch (err) {
-    history.push(login);
-  }
-};
-
-export const getUsers = () => async (dispatch, getState) => {
-  const { auth } = getState();
-
-  try {
-    const users = await axios.get("/api/v1/users", {
-      headers: {
-        authorization: `Bearer ${auth.token}`,
-      },
-    });
-
-    dispatch({
-      type: USERS,
-      payload: [...users.data.users],
-    });
-  } catch (err) {
-    history.push(login);
-  }
-};
-
 export const setActiveConversation = (conversation) => {
   return {
     type: ACTIVE_CONVERSATION,
@@ -393,6 +322,8 @@ export const setActiveConversation = (conversation) => {
 
 export const createConversation = (id) => async (dispatch, getState) => {
   const { auth } = getState();
+
+  const token = localStorage.getItem("token");
 
   dispatch({
     type: ACTIVE_CONVERSATION,
@@ -408,7 +339,7 @@ export const createConversation = (id) => async (dispatch, getState) => {
       { user1: auth.user._id, user2: id, createdAt: Date.now() },
       {
         headers: {
-          authorization: `Bearer ${auth.token}`,
+          authorization: `Bearer ${token}`,
         },
       }
     );
@@ -435,6 +366,8 @@ export const setMessageData = (message, state) => {
 export const sendMessage = () => async (dispatch, getState) => {
   const { message, auth, activeConversation } = getState();
 
+  const token = localStorage.getItem("token");
+
   dispatch({
     type: MESSAGE_DATA,
     payload: {
@@ -454,7 +387,7 @@ export const sendMessage = () => async (dispatch, getState) => {
       },
       {
         headers: {
-          authorization: `Bearer ${auth.token}`,
+          authorization: `Bearer ${token}`,
         },
       }
     );
@@ -638,7 +571,7 @@ export const messageInserted = (doc) => (dispatch, getState) => {
 };
 
 export const updateOnlineState = (state) => async (dispatch, getState) => {
-  const { auth } = getState();
+  const token = localStorage.getItem("token");
 
   try {
     await axios.patch(
@@ -648,12 +581,12 @@ export const updateOnlineState = (state) => async (dispatch, getState) => {
       },
       {
         headers: {
-          authorization: `Bearer ${auth.token}`,
+          authorization: `Bearer ${token}`,
         },
       }
     );
   } catch (err) {
-    history.push(login);
+    console.log(err);
   }
 };
 
@@ -682,7 +615,7 @@ export const setProfileData = (username, email) => {
 };
 
 export const saveProfileData = () => async (dispatch, getState) => {
-  const { profileData, auth } = getState();
+  const { profileData } = getState();
 
   const userAvatar = document.querySelector(".user-avatar");
   const formData = new FormData();
@@ -701,10 +634,12 @@ export const saveProfileData = () => async (dispatch, getState) => {
     },
   });
 
+  const token = localStorage.getItem("token");
+
   try {
     await axios.patch("/api/v1/users/updateMe", formData, {
       headers: {
-        authorization: `Bearer ${auth.token}`,
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -755,7 +690,7 @@ export const setChangePasswordData = (
 };
 
 export const saveNewPassword = () => async (dispatch, getState) => {
-  const { changePassword, auth } = getState();
+  const { changePassword } = getState();
 
   if (changePassword.newPassword.length < 12) {
     dispatch({
@@ -785,10 +720,12 @@ export const saveNewPassword = () => async (dispatch, getState) => {
     },
   });
 
+  const token = localStorage.getItem("token");
+
   try {
     await axios.patch("/api/v1/users/updatePassword", changePassword, {
       headers: {
-        authorization: `Bearer ${auth.token}`,
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -836,16 +773,73 @@ export const logout = () => async (dispatch, getState) => {
     payload: [],
   });
 
+  localStorage.clear();
+
   await axios.get("/api/v1/users/logout");
 };
 
 export const deleteAccount = () => async (dispatch, getState) => {
-  const { auth } = getState();
+  const token = localStorage.getItem("token");
 
   try {
     await axios.delete("/api/v1/users/deleteMe", {
       headers: {
-        authorization: `Bearer ${auth.token}`,
+        authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const loadData = () => async (dispatch) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const me = await axios.get("/api/v1/users/me", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        user: me.data.user,
+      },
+    });
+
+    const users = await axios.get("/api/v1/users", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({
+      type: USERS,
+      payload: [...users.data.users],
+    });
+
+    const conversations = await axios.get("/api/v1/conversations", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    let count = 0;
+    conversations.data.conversations.forEach((con) => {
+      const lastMsg = con.messages[con.messages.length - 1];
+
+      if (!lastMsg || lastMsg.user !== me.data.user._id) {
+        count++;
+      }
+    });
+
+    dispatch({
+      type: CONVERSATIONS,
+      payload: {
+        data: conversations.data.conversations,
+        notifications: count,
       },
     });
   } catch (err) {
