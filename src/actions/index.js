@@ -14,7 +14,7 @@ import {
 } from "./types";
 import axios from "../utils/axios";
 import history from "../utils/history";
-import { emailConfirmation } from "../utils/Routes";
+import { emailConfirmation, root } from "../utils/Routes";
 import EMOJIS from "../utils/emojis";
 import { saveToken, loadDataHelper } from "./helper";
 
@@ -504,17 +504,17 @@ export const conversationInserted = (doc) => (dispatch, getState) => {
   }
 };
 
-export const conversationDeleted = (id) => (dispatch, getState) => {
+export const conversationDeleted = (data) => (dispatch, getState) => {
   let { conversations, auth, activeConversation } = getState();
 
-  if (activeConversation._id === id) {
+  if (activeConversation && activeConversation._id === data._id) {
     dispatch({
       type: ACTIVE_CONVERSATION,
       payload: null,
     });
   }
 
-  conversations.data = conversations.data.filter((con) => con._id !== id);
+  conversations.data = conversations.data.filter((con) => con._id !== data._id);
 
   let count = 0;
   conversations.data.forEach((con) => {
@@ -723,7 +723,9 @@ export const saveNewPassword = () => async (dispatch, getState) => {
     dispatch({
       type: CHANGE_PASSWORD,
       payload: {
-        ...changePassword,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
         state: "saved",
       },
     });
@@ -732,7 +734,9 @@ export const saveNewPassword = () => async (dispatch, getState) => {
       dispatch({
         type: CHANGE_PASSWORD,
         payload: {
-          ...changePassword,
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
           state: "",
         },
       });
@@ -778,6 +782,7 @@ export const deleteAccount = () => async (dispatch, getState) => {
         authorization: `Bearer ${token}`,
       },
     });
+    history.push(root);
   } catch (err) {
     console.log(err);
   }
