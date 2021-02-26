@@ -41,7 +41,10 @@ class index extends Component {
   };
 
   componentDidMount() {
-    if (!localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    const exp = localStorage.getItem("exp");
+
+    if (!token || +exp < Date.now()) {
       history.push(login);
     }
   }
