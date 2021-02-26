@@ -28,22 +28,11 @@ import Homepage from "./Homepage/Homepage";
 import Profile from "./Profile";
 import ChangePassword from "./ChangePassword";
 import { loadData } from "../actions";
-import history from "../utils/history";
 import "./App.scss";
 
 class App extends React.Component {
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    if (!token) return history.push(login);
-
-    const exp = localStorage.getItem("exp");
-
-    if (+exp >= Date.now()) {
-      history.push(conversations);
-      this.props.loadData();
-    } else {
-      history.push(login);
-    }
+    this.props.loadData();
   }
 
   render() {
