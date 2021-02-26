@@ -100,6 +100,8 @@ $break-point: 768px;
     margin: auto;
     margin-top: 0.5rem;
     color: $secondary-app-color;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
@@ -272,28 +274,6 @@ $break-point: 768px;
 
         @media (min-width: 576px) {
           font-size: 1.4rem;
-        }
-      }
-
-      &-activeState {
-        margin: 0;
-        margin-top: 0.2rem;
-        font-size: 0.8rem;
-        color: #5eff44;
-
-        @media (min-width: 576px) {
-          margin-top: 0.5rem;
-        }
-      }
-
-      &-offlineState {
-        margin: 0;
-        margin-top: 0.2rem;
-        font-size: 0.8rem;
-        color: $secondary-text-color;
-
-        @media (min-width: 576px) {
-          margin-top: 0.5rem;
         }
       }
     }

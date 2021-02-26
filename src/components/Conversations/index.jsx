@@ -204,7 +204,10 @@ class Conversations extends Component {
   };
 
   componentDidMount() {
-    if (!localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    const exp = localStorage.getItem("exp");
+
+    if (!token || +exp < Date.now()) {
       history.push(login);
     }
 
@@ -233,12 +236,18 @@ class Conversations extends Component {
     });
 
     this.conversationChannel.bind("deleted", (data) => {
-      this.props.conversationDeleted(data._id);
+      this.props.conversationDeleted(data);
     });
 
     this.messageChannel.bind("inserted", (data) => {
       this.props.messageInserted(data);
     });
+
+    window.onbeforeunload = () => {
+      this.userChannel.unsubscribe();
+      this.conversationChannel.unsubscribe();
+      this.messageChannel.unsubscribe();
+    };
   }
 
   componentDidUpdate() {
@@ -329,22 +338,6 @@ class Conversations extends Component {
                     <h5 className="message-header-user-name">
                       {this.getUser(this.props.activeConversation).username}
                     </h5>
-                    {this.getUser(this.props.activeConversation)
-                      .isUserActive ? (
-                      <p
-                        key="jnbvdhgfdcvb"
-                        className="message-header-user-activeState"
-                      >
-                        active
-                      </p>
-                    ) : (
-                      <p
-                        key="iuytd,mnbvdfghj"
-                        className="message-header-user-offlineState"
-                      >
-                        offline
-                      </p>
-                    )}
                   </div>
                 </div>
               </header>
