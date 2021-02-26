@@ -45,7 +45,7 @@ class index extends Component {
             alt="default avatar"
           />
           <p className="profile-bar-username">
-            {this.props.auth.user?.username || "raman karki"}
+            {this.props.auth.user?.username || ""}
           </p>
           {this.state.isOptionsActive ? (
             <div className="profile-bar-options">
