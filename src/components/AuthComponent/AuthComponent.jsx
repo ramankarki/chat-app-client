@@ -1,9 +1,20 @@
 import React from "react";
 
+import history from "../../utils/history";
+import { conversations } from "../../utils/Routes";
 import logo from "../logo.png";
 import "./AuthComponent.scss";
 
 class AuthComponent extends React.Component {
+  componentDidMount() {
+    const token = localStorage.getItem("token");
+    const exp = localStorage.getItem("exp");
+
+    if (token && +exp >= Date.now()) {
+      return history.push(conversations);
+    }
+  }
+
   render() {
     return (
       <div className="auth-component">

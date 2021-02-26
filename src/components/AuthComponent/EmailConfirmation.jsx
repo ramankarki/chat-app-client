@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { resendAccountActivateEmail } from "../../actions";
 import { newUserDataState } from "../../actions/types";
 import history from "../../utils/history";
-import { signup } from "../../utils/Routes";
+import { signup, conversations } from "../../utils/Routes";
 import logo from "../logo.png";
 import spinner from "../spinner.svg";
 
 function EmailConfirmation(props) {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const exp = localStorage.getItem("exp");
+
+    if (token && +exp >= Date.now()) {
+      return history.push(conversations);
+    }
+  }, []);
+
   const resendEmail = () => {
     if (
       props.newUserData &&
