@@ -1,5 +1,13 @@
 import axios from "../utils/axios";
-import { AUTH_USER, USERS, CONVERSATIONS, APP_DATA_LOADING } from "./types";
+import {
+  AUTH_USER,
+  USERS,
+  CONVERSATIONS,
+  APP_DATA_LOADING,
+  PROFILE_DATA,
+} from "./types";
+import history from "../utils/history";
+import { login } from "../utils/Routes";
 
 export const saveToken = (token) => {
   localStorage.setItem("token", token);
@@ -36,6 +44,14 @@ export const loadDataHelper = async (
 
       user = me.data.user;
     }
+
+    dispatch({
+      type: PROFILE_DATA,
+      payload: {
+        username: user.username,
+        email: user.email,
+      },
+    });
 
     if (users) {
       const users = await axios.get("/api/v1/users", {
@@ -85,5 +101,6 @@ export const loadDataHelper = async (
       payload: "failed",
     });
     console.log(err);
+    history.push(login);
   }
 };
