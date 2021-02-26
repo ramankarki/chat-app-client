@@ -7,7 +7,12 @@ import {
   PROFILE_DATA,
 } from "./types";
 import history from "../utils/history";
-import { login } from "../utils/Routes";
+import {
+  login,
+  changePassword,
+  conversations,
+  updateProfile,
+} from "../utils/Routes";
 
 export const saveToken = (token) => {
   localStorage.setItem("token", token);
@@ -103,6 +108,14 @@ export const loadDataHelper = async (
     console.log(err);
 
     const path = window.location.href.split("#")[1];
-    if (path !== "/") history.push(login);
+    switch (path) {
+      case conversations:
+      case updateProfile:
+      case changePassword:
+        history.push(login);
+        break;
+      default:
+        return;
+    }
   }
 };
