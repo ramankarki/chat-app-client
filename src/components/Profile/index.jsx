@@ -75,7 +75,12 @@ class index extends Component {
   };
 
   componentDidMount() {
-    if (!localStorage.getItem("token")) history.push(login);
+    const token = localStorage.getItem("token");
+    const exp = localStorage.getItem("exp");
+
+    if (!token || +exp < Date.now()) {
+      history.push(login);
+    }
 
     if (this.props.auth.user)
       this.props.setProfileData(
