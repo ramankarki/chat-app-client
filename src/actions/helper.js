@@ -101,6 +101,8 @@ export const loadDataHelper = async (
       payload: "failed",
     });
     console.log(err);
-    history.push(login);
+
+    const path = window.location.href.split("#")[1];
+    if (path !== "/") history.push(login);
   }
 };
